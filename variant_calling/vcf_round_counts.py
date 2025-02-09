@@ -8,18 +8,18 @@ def main(sample, bin_size, dir, force):
                 "TCA","RTCA","YTCA",\
                 "TP53","PIK3CA","GATA3","MAP3K1","KMT2C","PTEN","CBFB","CDH1","AKT1","NF1"]
     
-    if os.path.exists("{0}{1}.somatic.mutations.rounded{2}.xlsx".format(d, dir, bin_size)):
+    if os.path.exists("{0}/{1}.somatic.mutations.rounded{2}.xlsx".format(d, dir, bin_size)):
         print("Mutations already rounded sis\nUse --force to replace existing file")
         if not force:
             round = False
     
     if round:
-        writer = pd.ExcelWriter("{0}{1}.somatic.mutations.rounded{2}.xlsx".format(d, dir, bin_size), mode="w", engine="openpyxl")
+        writer = pd.ExcelWriter("{0}/{1}.somatic.mutations.rounded{2}.xlsx".format(dir, d, bin_size), mode="w", engine="openpyxl")
 
         for muttype in muttypes:
             print(muttype)
             found = True
-            try: df = pd.read_csv("{1}coords/{0}.somatic.{2}.coords.txt".format(d, dir, muttype), delimiter=" ", header=None)
+            try: df = pd.read_csv("{0}/coords/{1}.somatic.{2}.coords.txt".format(dir, d, muttype), delimiter=" ", header=None)
             except FileNotFoundError: 
                 found = False
                 print("File not found sis bad luck")

@@ -29,11 +29,11 @@ def main(sample, skiprows, in_dir, out_dir, force):
         df["GENE"] = allgenes
         col = df.pop("GENE")
         df.insert(5, "GENE", col)
-        df.to_csv("{0}{1}/{1}.somatic.all.tsv".format(out_dir, d), sep="\t")
+        df.to_csv("{0}/{1}.somatic.all.tsv".format(out_dir, d), sep="\t")
 
         driver_genes = ["TP53","PIK3CA","GATA3","MAP3K1","KMT2C","PTEN","CBFB","CDH1","AKT1","NF1"]
         for gene in driver_genes:
-            df[df["GENE"]==gene].to_csv("{0}{1}.somatic.{2}.tsv".format(out_dir, d, gene), sep="\t", header=False) ## ga
+            df[df["GENE"]==gene].to_csv("{0}/{1}.somatic.{2}.tsv".format(out_dir, d, gene), sep="\t", header=False) ## ga
 
         ## extract mutations
         changes = [
@@ -42,7 +42,7 @@ def main(sample, skiprows, in_dir, out_dir, force):
             ("A","T")
         ]
         for c in changes:
-            df[(df["REF"]==c[0]) & (df["ALT"]==c[1])].to_csv("{0}{1}.somatic.{2}{3}.tsv".format(out_dir, d, c[0], c[1]), sep="\t", header=False)
+            df[(df["REF"]==c[0]) & (df["ALT"]==c[1])].to_csv("{0}/{1}.somatic.{2}{3}.tsv".format(out_dir, d, c[0], c[1]), sep="\t", header=False)
 
         ## extract context
         df1 = df[(df.REF.str.len()==1) & (df.ALT.str.len()==1)]
@@ -58,9 +58,9 @@ def main(sample, skiprows, in_dir, out_dir, force):
         df1["DOWN"] = down
 
         tca = df1[(df1["UP"]=="T") & (df1["DOWN"]=="A")]
-        tca.to_csv("{0}{1}.somatic.TCA.tsv".format(out_dir, d), sep="\t", header=False)
-        tca[(tca["UP2"]=="T") | (tca["UP2"]=="C")].to_csv("{0}{1}.somatic.YTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ct
-        tca[(tca["UP2"]=="G") | (tca["UP2"]=="A")].to_csv("{0}{1}.somatic.RTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ga
+        tca.to_csv("{0}/{1}.somatic.TCA.tsv".format(out_dir, d), sep="\t", header=False)
+        tca[(tca["UP2"]=="T") | (tca["UP2"]=="C")].to_csv("{0}/{1}.somatic.YTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ct
+        tca[(tca["UP2"]=="G") | (tca["UP2"]=="A")].to_csv("{0}/{1}.somatic.RTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ga
 
         
 
