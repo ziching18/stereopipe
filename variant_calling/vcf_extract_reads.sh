@@ -15,7 +15,7 @@ while read line; do
     echo "final String contig= \"$chr\";" >> $path/bams/$muttype.skrip.js;
     echo "final int mutpos = $pos;" >> $path/bams/$muttype.skrip.js;
     echo "final char mutbase='$alt';" >> $path/bams/$muttype.skrip.js;
-    cat $path/scriptbody.js >> $path/bams/$muttype.skrip.js;
+    cat /stereoseq/all_samples/mutations/scriptbody.js >> $path/bams/$muttype.skrip.js;
     samtools view -b /stereoseq/all_samples/bams/$TUM_ID/$TUM_ID.recal.RGA.bam $fullpos > $path/bams/$muttype.subset.bam;
     java -jar ~/tools/jvarkit/dist/jvarkit.jar samjdk \
     -f $path/bams/$muttype.skrip.js $path/bams/$muttype.subset.bam \
