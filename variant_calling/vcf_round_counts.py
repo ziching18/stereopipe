@@ -58,4 +58,4 @@ if __name__ == "__main__":
     parser.add_argument("--dir")
     parser.add_argument("--force", action="store_true")
     args = parser.parse_args()
-    main(args.sample)
+    main(args.sample, args.bin_size, args.dir, args.force)

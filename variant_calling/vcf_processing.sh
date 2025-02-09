@@ -1,6 +1,8 @@
 TUM_ID=$1
 rows=$(grep "#" /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.somatic.funcotated.vcf | wc -l)
 
+conda activate st;
+
 python3 /stereoseq/code/stereopipe/variant_calling/vcf_filter_variants.py -s ${TUM_ID} \
 --skiprows $rows --in_dir "/stereoseq/all_samples/vcf/${TUM_ID}/" \
 --out_dir "/stereoseq/all_samples/mutations/${TUM_ID}/variants/";
