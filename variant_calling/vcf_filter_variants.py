@@ -38,7 +38,7 @@ def main(sample, skiprows, in_dir, out_dir, force):
         df["GENE"] = allgenes
         col = df.pop("GENE")
         df.insert(5, "GENE", col)
-        df.to_csv("{0}{1}/{1}.somatic.funcotated.tsv".format(out_dir, d), sep="\t")
+        df.to_csv("{0}{1}/{1}.somatic.all.tsv".format(out_dir, d), sep="\t")
 
         ## extract mutations
         changes = [
@@ -65,6 +65,6 @@ if __name__ == "__main__":
     parser.add_argument("--skiprows", type=int)
     parser.add_argument("--in_dir")
     parser.add_argument("--out_dir")
-    parser.add_argument("--force", action="store_false")
+    parser.add_argument("--force", action="store_true")
     args = parser.parse_args()
     main(args.sample)
