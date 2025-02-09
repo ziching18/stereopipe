@@ -7,7 +7,7 @@ def main(sample, skiprows, in_dir, out_dir, force):
     #sr = int(skiprows) ## number of rows to skip for vcf
     extract = True
 
-    if os.path.exists("{0}/{1}.somatic.funcotated.tsv".format(out_dir, d)):
+    if os.path.exists("{0}/{1}.somatic.all.tsv".format(out_dir, d)):
         print("Variants already extracted sis\nUse --force to replace existing file")
         if not force:
             extract = False
