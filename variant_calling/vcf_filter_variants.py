@@ -16,7 +16,7 @@ def main(sample, skiprows, in_dir, out_dir, force):
         #    df.to_csv("{0}{1}/{1}.somatic.funcotated.tsv".format(out_dir, d), sep="\t")
     
     if extract:
-        df = pd.read_csv("{0}{1}/{1}.somatic.funcotated.vcf".format(in_dir, d), skiprows=skiprows-1, sep="\t")
+        df = pd.read_csv("{0}/{1}.somatic.funcotated.vcf".format(in_dir, d), skiprows=skiprows-1, sep="\t")
         ## extract context
         seqs = [] 
         for i in range(len(df)):
