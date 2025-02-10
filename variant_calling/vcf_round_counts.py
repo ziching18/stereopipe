@@ -5,7 +5,7 @@ import math
 def main(sample, bin_size, dir, force):
     d = sample
     round = True
-    
+
     muttypes = ["all","CT","GA","AT",\
                 "TCA","RTCA","YTCA",\
                 "TP53","PIK3CA","GATA3","MAP3K1","KMT2C","PTEN","CBFB","CDH1","AKT1","NF1"]
@@ -32,7 +32,8 @@ def main(sample, bin_size, dir, force):
                 x = []
                 y = []
                 for i in range(len(df)):
-                    x.append(int(df[1][i].split(":")[-1]))                
+                    x.append(int(df[1][i].split(":")[-1]))   
+                    y.append(int(df[2][i].split(":")[-1]))                
                 df["x"] = x
                 df["y"] = y
 
