@@ -4,7 +4,7 @@ path=$(echo /stereoseq/all_samples/mutations/$TUM_ID);
 touch $path/logs/$TUM_ID.$muttype.log.txt;
 linenumber=$(wc -l $path/logs/$TUM_ID.$muttype.log.txt | awk '{print $1}');
 
-echo chr pos ref alt gene count > $path/counts/$TUM_ID.somatic.vcf.transcript.$muttype.gene.counts.tsv;
+echo chr pos ref alt gene chr.pos.ref.alt.gene count > $path/counts/$TUM_ID.somatic.vcf.transcript.$muttype.gene.counts.tsv;
 while read line; do
     rm $path/bams/$muttype.subset.bam;
     rm $path/bams/$muttype.skrip.js;
@@ -24,6 +24,7 @@ while read line; do
     -f $path/bams/$muttype.skrip.js $path/bams/$muttype.subset.bam \
     -o $path/bams/$muttype/$TUM_ID.somatic.chr$chr.$pos.$muttype.bam --samoutputformat BAM;
     count=$(samtools view $path/bams/$muttype/$TUM_ID.somatic.chr$chr.$pos.$muttype.bam | wc -l | awk '{print $1}');
-    echo $chr $pos $ref $alt $gene chr$chr.$pos.$ref.$alt.$gene $count >> $path/$TUM_ID.somatic.vcf.transcript.$muttype.gene.counts.tsv; # writing counts to file
+    echo $chr $pos $ref $alt $gene chr$chr.$pos.$ref.$alt.$gene $count >> $path/counts/$TUM_ID.somatic.vcf.transcript.$muttype.gene.counts.tsv; # writing counts to file
 #done < <(tail -n "+$linenumber" $path/variants/$TUM_ID.somatic.$muttype.tsv)
 done < $path/variants/$TUM_ID.somatic.$muttype.tsv
+touch $path/$TUM_ID.$muttype.extract_reads.success;
