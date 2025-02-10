@@ -4,7 +4,7 @@ path=$(echo /stereoseq/all_samples/mutations/$TUM_ID);
 touch $path/logs/$TUM_ID.$muttype.log.txt;
 linenumber=$(wc -l $path/logs/$TUM_ID.$muttype.log.txt | awk '{print $1}');
 
-echo chr pos ref alt gene count > $path/$TUM_ID.somatic.vcf.transcript.$muttype.gene.counts.tsv;
+echo chr pos ref alt gene count > $path/counts/$TUM_ID.somatic.vcf.transcript.$muttype.gene.counts.tsv;
 while read line; do
     rm $path/bams/$muttype.subset.bam;
     rm $path/bams/$muttype.skrip.js;

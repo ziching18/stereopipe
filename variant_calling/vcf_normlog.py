@@ -26,6 +26,7 @@ def norm_log(x, d=False): # for pd.Series, not pd.DataFrame, full 18115
 
 def main(sample, bin_size, dir, force):
     d = sample
+    norm = True
     datalist = [
         "SD507","SD560","SD1043", # A3B del/del
         "SD1182","SD1225", # A3B del/WT
