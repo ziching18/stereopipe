@@ -23,7 +23,7 @@ while read line; do
     java -jar ~/tools/jvarkit/dist/jvarkit.jar samjdk \
     -f $path/bams/$muttype.skrip.js $path/bams/$muttype.subset.bam \
     -o $path/bams/$muttype/$TUM_ID.somatic.chr$chr.$pos.$muttype.bam --samoutputformat BAM;
-    count=$(samtools view $path/bams/$muttype/$TUM_ID.somatic.chr$chr.$pos.bam | wc -l | awk '{print $1}');
+    count=$(samtools view $path/bams/$muttype/$TUM_ID.somatic.chr$chr.$pos.$muttype.bam | wc -l | awk '{print $1}');
     echo $chr $pos $ref $alt $gene chr$chr.$pos.$ref.$alt.$gene $count >> $path/$TUM_ID.somatic.vcf.transcript.$muttype.gene.counts.tsv; # writing counts to file
 #done < <(tail -n "+$linenumber" $path/variants/$TUM_ID.somatic.$muttype.tsv)
 done < $path/variants/$TUM_ID.somatic.$muttype.tsv
