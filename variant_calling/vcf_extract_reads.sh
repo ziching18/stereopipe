@@ -27,4 +27,4 @@ while read line; do
     echo $chr $pos $ref $alt $gene chr$chr.$pos.$ref.$alt.$gene $count >> $path/counts/$TUM_ID.somatic.vcf.transcript.$muttype.gene.counts.tsv; # writing counts to file
 #done < <(tail -n "+$linenumber" $path/variants/$TUM_ID.somatic.$muttype.tsv)
 done < $path/variants/$TUM_ID.somatic.$muttype.tsv
-touch $path/$TUM_ID.$muttype.extract_reads.success;
+touch $path/logs/$TUM_ID.$muttype.extract_reads.success;

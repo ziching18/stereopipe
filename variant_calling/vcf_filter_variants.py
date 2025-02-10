@@ -18,7 +18,7 @@ def main(sample, skiprows, in_dir, out_dir, force):
     
     if extract:
         df = pd.read_csv("{0}/{1}.somatic.funcotated.vcf".format(in_dir, d), skiprows=skiprows-1, sep="\t")
-        df.to_csv("{0}/{1}.somatic.funcotated.tsv".format(in_dir, d))
+        df.to_csv("{0}/{1}.somatic.funcotated.tsv".format(out_dir, d))
         seqs = [] 
         for i in range(len(df)):
             seqs.append(df.iloc[i]["INFO"].split("|")[21])
