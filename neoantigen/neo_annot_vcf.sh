@@ -57,3 +57,5 @@ aws s3 cp ${TUM_ID}.somatic.funcotated.vep.vcf.gz s3://crm.steroseq.raw.data/Bre
 aws s3 cp ${TUM_ID}.phased.vcf s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/vcf_updatedFeb25/ ;
 aws s3 cp ${TUM_ID}.phased.vep.vcf s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/vcf_updatedFeb25/ ;
 aws s3 cp ${TUM_ID}.phased.vep.vcf.gz s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/vcf_updatedFeb25/ ;
+aws s3 cp ${TUM_ID}.phased.vep.vcf.gz.tbi s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/vcf_updatedFeb25/ ;
+aws s3 cp ${TUM_ID}.somatic.funcotated.vep.vcf.gz.tbi s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/vcf_updatedFeb25/ ;
