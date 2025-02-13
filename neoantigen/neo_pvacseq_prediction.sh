@@ -12,7 +12,7 @@ HLA=$2;
 echo "running..." ${TUM_ID} ${HLA};
 pvacseq run \
 /vcf/${TUM_ID}.somatic.funcotated.vep.vcf.gz \
-${TUM_ID} \
+${TUM_ID}_stereo_TUM \
 ${HLA} \
 MHCflurry MHCflurryEL NNalign NetMHC NetMHCIIpan NetMHCIIpanEL NetMHCpan NetMHCpanEL \
 /output \
