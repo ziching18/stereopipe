@@ -18,6 +18,7 @@ MHCflurry MHCflurryEL NNalign NetMHC NetMHCIIpan NetMHCIIpanEL NetMHCpan NetMHCp
 /output \
 -e1 8,9,10,11 \
 -e2 15 \
+--normal-sample-name ${TUM_ID}_MN \
 -p /vcf/${TUM_ID}.phased.vep.vcf.gz \
 --iedb-install-directory /opt/iedb ;
 echo "finished ${TUM_ID}
