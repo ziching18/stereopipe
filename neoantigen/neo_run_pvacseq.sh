@@ -12,5 +12,6 @@ sudo docker run \
 -v /home/ziching/neo/out/output_${TUM_ID}:/output \
 -v /home/ziching/neo/VEP_plugins:/VEP_plugins \
 -v /home/ziching/neo/code/stereopipe/neoantigen:/code \
--dit griffithlab/pvactools ;
+-dit griffithlab/pvactools \
+--restart=unless-stopped ;
 sudo docker exec ${TUM_ID}_neo bash -c "bash /code/neo_pvacseq_prediction.sh ${TUM_ID} $hla"; 
