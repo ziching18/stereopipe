@@ -1,6 +1,6 @@
 TUM_ID=$1;
 path=$(echo /stereoseq/all_samples/neoantigens/${TUM_ID});
-touch $path/logs/$TUM_ID.$muttype.log.txt;
+touch $path/logs/$TUM_ID.neoantigens.log.txt;
 linenumber=$(wc -l $path/logs/$TUM_ID.neoantigens.log.txt | awk '{print $1}');
 
 echo chr pos ref alt gene chr.pos.ref.alt.gene count > $path/counts/$TUM_ID.neoantigens.vcf.transcript.gene.counts.tsv;
