@@ -23,7 +23,7 @@ while read line; do
     cat /stereoseq/all_samples/neoantigens/scriptbody.js >> $path/bams/$muttype.skrip.js;
     samtools view -b /stereoseq/all_samples/bams/$TUM_ID/$TUM_ID.recal.RGA.bam $fullpos > $path/$muttype.subset.bam;
     java -jar ~/tools/jvarkit/dist/jvarkit.jar samjdk \
-    -f $path/$muttype/skrip.js $path/$muttype.subset.bam \
+    -f $path/$muttype.skrip.js $path/$muttype.subset.bam \
     -o $path/bams/$muttype/$TUM_ID.neoantigens.chr$chr.$pos.$muttype.bam --samoutputformat BAM;
     count=$(samtools view $path/bams/$muttype/$TUM_ID.neoantigens.chr$chr.$pos.$muttype.bam | wc -l | awk '{print $1}');
     echo $chr $pos $ref $alt $gene chr$chr.$pos.$ref.$alt.$gene $count >> $path/counts/$TUM_ID.neoantigens.vcf.transcript.$muttype.gene.counts.tsv; # writing counts to file
