@@ -10,10 +10,10 @@ while read line; do
     chr=$(echo $line | awk '{print $1}');
     pos=$(echo $line | awk '{print $2}');
     fullpos=$(echo $chr\:$(($pos-200))\-$(($pos+200)));
-    echo $fullpos >> $path/${TUM_ID}.neoantigens.log.txt;
-    ref=$(echo $line | awk '{print $5}');
-    alt=$(echo $line | awk '{print $6}' | cut -c1-1);
-    gene=$(echo $line | awk '{print $7}');
+    echo $chr $fullpos >> $path/${TUM_ID}.neoantigens.log.txt;
+    ref=$(echo $line | awk '{print $4}');
+    alt=$(echo $line | awk '{print $5}' | cut -c1-1);
+    gene=$(echo $line | awk '{print $8}' | cut -d '[' -f 2 | cut -d '|' -f 1);
     echo "final String contig= \"$chr\";" >> $path/skrip.js;
     echo "final int mutpos = $pos;" >> $path/skrip.js;
     echo "final char mutbase='$alt';" >> $path/skrip.js;
