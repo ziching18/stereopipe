@@ -7,12 +7,12 @@ echo chr pos ref alt gene chr.pos.ref.alt.gene count > $path/counts/$TUM_ID.neoa
 while read line; do
     rm $path/$muttype.subset.bam;
     rm $path/$muttype.skrip.js;
-    chr=$(echo $line | awk '{print $1}');
-    pos=$(echo $line | awk '{print $2}');
+    chr=$(echo $line | awk '{print $2}');
+    pos=$(echo $line | awk '{print $3}');
     fullpos=$(echo $chr\:$(($pos-500))\-$(($pos+500)));
     echo $chr $fullpos >> $path/$TUM_ID.neoantigens.$muttype.log.txt;
-    ref=$(echo $line | awk '{print $4}');
-    alt=$(echo $line | awk '{print $5}' | cut -c1-1);
+    ref=$(echo $line | awk '{print $5}');
+    alt=$(echo $line | awk '{print $6}' | cut -c1-1);
     #gene=$(echo $line | awk '{print $8}' | cut -d '[' -f 2 | cut -d '|' -f 1);
     gene=$(echo $line | awk '{print $7}');
     echo "final String contig= \"$chr\";" >> $path/$muttype.skrip.js;
