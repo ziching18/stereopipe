@@ -20,7 +20,7 @@ while read line; do
     echo "final String contig= \"$chr\";" >> $path/$muttype.skrip.js;
     echo "final int mutpos = $pos;" >> $path/$muttype.skrip.js;
     echo "final char mutbase='$alt';" >> $path/$muttype.skrip.js;
-    cat /stereoseq/all_samples/mutations/scriptbody.js >> $path/bams/$muttype.skrip.js;
+    cat /stereoseq/all_samples/neoantigens/scriptbody.js >> $path/bams/$muttype.skrip.js;
     samtools view -b /stereoseq/all_samples/bams/$TUM_ID/$TUM_ID.recal.RGA.bam $fullpos > $path/$muttype.subset.bam;
     java -jar ~/tools/jvarkit/dist/jvarkit.jar samjdk \
     -f $path/$muttype/skrip.js $path/$muttype.subset.bam \
