@@ -1,6 +1,6 @@
 TUM_ID=$1;
 
-bash /stereoseq/code/stereopipe/neoantigens/neo_extract_vcf.sh ${TUM_ID};
+bash /stereoseq/code/stereopipe/variant_calling/neo_extract_vcf.sh ${TUM_ID};
 
 python3 /stereoseq/code/stereopipe/variant_calling/neo_filter_variants.py -s ${TUM_ID} \
 --in_dir "/stereoseq/all_samples/neoantigens/${TUM_ID}" \
