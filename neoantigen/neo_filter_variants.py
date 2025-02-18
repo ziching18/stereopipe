@@ -17,7 +17,7 @@ def main(sample, in_dir, out_dir, force):
         #    df.to_csv("{0}{1}/{1}.somatic.funcotated.tsv".format(out_dir, d), sep="\t")
     
     if extract:
-        df = pd.read_csv("{0}/{1}.neoantigens.all.vcf.tsv".format(in_dir, d), sep="\t")
+        df = pd.read_csv("{0}/{1}.neoantigens.all.vcf.tsv".format(in_dir, d), header=None, sep="\t")
         #df.to_csv("{0}/{1}.somatic.funcotated.tsv".format(out_dir, d))
         seqs = [] 
         for i in range(len(df)):
