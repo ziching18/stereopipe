@@ -1,4 +1,6 @@
 TUM_ID=$1;
+muttype=$2;
+
 path=$(echo /stereoseq/all_samples/neoantigens/$TUM_ID);
 touch $path/logs/$TUM_ID.neoantigens.$muttype.log.txt;
 linenumber=$(wc -l $path/logs/$TUM_ID.neoantigens.$muttype.log.txt | awk '{print $1}');
