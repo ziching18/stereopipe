@@ -22,7 +22,7 @@ while read line; do
     java -jar ~/tools/jvarkit/dist/jvarkit.jar samjdk \
     -f $path/skrip.js $path/subset.bam \
     -o $path/bams/${TUM_ID}.neoantigens.chr$chr.$pos.bam --samoutputformat BAM;
-    count=$(samtools view $path/bams/$TUM_ID.somatic.chr$chr.$pos.bam | wc -l | awk '{print $1}');
+    count=$(samtools view $path/bams/$TUM_ID.neoantigens.chr$chr.$pos.bam | wc -l | awk '{print $1}');
     echo $chr $pos $ref $alt $gene chr$chr.$pos.$ref.$alt.$gene $count >> $path/counts/$TUM_ID.neoantigens.vcf.transcript.gene.counts.tsv; # writing counts to file
 done < $path/${TUM_ID}.neoantigens.filtered.full.vcf.tsv
 #<(tail -n "+$linenumber" $path/${TUM_ID}.neoantigens.${CLASS}.filtered.full.vcf.tsv)
