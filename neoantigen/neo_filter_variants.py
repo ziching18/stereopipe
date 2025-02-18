@@ -46,7 +46,9 @@ def main(sample, in_dir, out_dir, force):
             ("A","T")
         ]
         for c in changes:
-            df[(df[3]==c[0]) & (df[4]==c[1])].to_csv("{0}/{1}.neoantigens.{2}{3}.tsv".format(out_dir, d, c[0], c[1]), sep="\t", header=False)
+            dfc = df[(df[3]==c[0]) & (df[4]==c[1])]
+            if len(dfc) > 0:
+                dfc.to_csv("{0}/{1}.neoantigens.{2}{3}.tsv".format(out_dir, d, c[0], c[1]), sep="\t", header=False)
 
         ## extract context
         df1 = df[(df[3].str.len()==1) & (df[4].str.len()==1)]
@@ -62,9 +64,10 @@ def main(sample, in_dir, out_dir, force):
         df1["DOWN"] = down
 
         tca = df1[(df1["UP"]=="T") & (df1["DOWN"]=="A")]
-        tca.to_csv("{0}/{1}.neoantigens.TCA.tsv".format(out_dir, d), sep="\t", header=False)
-        tca[(tca["UP2"]=="T") | (tca["UP2"]=="C")].to_csv("{0}/{1}.neoantigens.YTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ct
-        tca[(tca["UP2"]=="G") | (tca["UP2"]=="A")].to_csv("{0}/{1}.neoantigens.RTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ga
+        if len(tca) > 0:
+            tca.to_csv("{0}/{1}.neoantigens.TCA.tsv".format(out_dir, d), sep="\t", header=False)
+            tca[(tca["UP2"]=="T") | (tca["UP2"]=="C")].to_csv("{0}/{1}.neoantigens.YTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ct
+            tca[(tca["UP2"]=="G") | (tca["UP2"]=="A")].to_csv("{0}/{1}.neoantigens.RTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ga
 
         
 
