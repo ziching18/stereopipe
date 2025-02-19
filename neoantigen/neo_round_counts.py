@@ -5,7 +5,6 @@ import math
 def main(sample, bin_size, dir, force):
     d = sample
     round = True
-    print(force)
 
     muttypes = ["all","CT","GA","AT",\
                 "TCA","RTCA","YTCA"]
