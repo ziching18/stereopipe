@@ -63,7 +63,8 @@ def main(sample, in_dir, out_dir, force):
         df1["UP"] = up
         df1["DOWN"] = down
 
-        tca = df1[(df1["UP"]=="T") & (df1["DOWN"]=="A")]
+        ta = df1[(df1["UP"]=="T") & (df1["DOWN"]=="A")]
+        tca = ta[(ta[3]=="C") & (ta[4]=="T")]
         if len(tca) > 0:
             tca.to_csv("{0}/{1}.neoantigens.TCA.tsv".format(out_dir, d), sep="\t", header=False)
             tca[(tca["UP2"]=="T") | (tca["UP2"]=="C")].to_csv("{0}/{1}.neoantigens.YTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ct

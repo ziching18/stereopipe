@@ -61,7 +61,8 @@ def main(sample, skiprows, in_dir, out_dir, force):
         df1["UP"] = up
         df1["DOWN"] = down
 
-        tca = df1[(df1["UP"]=="T") & (df1["DOWN"]=="A")]
+        ta = df1[(df1["UP"]=="T") & (df1["DOWN"]=="A")]
+        tca = ta[(ta[3]=="C") & (ta[4]=="T")]
         tca.to_csv("{0}/{1}.somatic.TCA.tsv".format(out_dir, d), sep="\t", header=False)
         tca[(tca["UP2"]=="T") | (tca["UP2"]=="C")].to_csv("{0}/{1}.somatic.YTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ct
         tca[(tca["UP2"]=="G") | (tca["UP2"]=="A")].to_csv("{0}/{1}.somatic.RTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ga
