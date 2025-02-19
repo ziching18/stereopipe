@@ -12,7 +12,7 @@ while read line; do
     chr=$(echo $line | awk '{print $2}');
     pos=$(echo $line | awk '{print $3}');
     fullpos=$(echo $chr\:$(($pos-500))\-$(($pos+500)));
-    echo $chr $fullpos >> $path/$TUM_ID.neoantigens.$muttype.log.txt;
+    echo $chr $fullpos >> $path/logs/$TUM_ID.neoantigens.$muttype.log.txt;
     ref=$(echo $line | awk '{print $5}');
     alt=$(echo $line | awk '{print $6}' | cut -c1-1);
     #gene=$(echo $line | awk '{print $8}' | cut -d '[' -f 2 | cut -d '|' -f 1);
