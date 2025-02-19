@@ -46,7 +46,7 @@ def main(sample, bin_size, dir, force):
                 df_round = df.groupby(["round_x","round_y"]).size().reset_index()
                 df_round = df_round.reset_index()
                 df_round.drop(columns=["index"], inplace=True)
-                df_round.rename(columns={0: "%s_count" % muttype}, inplace=True)
+                df_round.rename(columns={0: "%s_neoantigens_count" % muttype}, inplace=True)
 
                 df_round.to_excel(writer, sheet_name=muttype)
         
