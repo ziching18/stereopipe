@@ -15,7 +15,7 @@ def main(samples, output):
         "Lymphoid_signatures"
     ]
 
-    Analyze.cosmic_fit(samples, output, input_type="vcf", context_type="ID",
+    Analyze.cosmic_fit(samples, output, input_type="vcf", context_type="96",
                     collapse_to_SBS96=True, cosmic_version=3.4, exome=True,
                     genome_build="GRCh38", signature_database=None,
                     exclude_signature_subgroups=exclude_signature_subgroups, 
