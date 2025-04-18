@@ -20,7 +20,7 @@ def main(samples, output, input_type, context_type, force, threshold=0.25):
 
     profile = True
 
-    if os.path.exists("{}/Assignment_Solution/Signatures/Assignment_Solution_Signatures.txt"):
+    if os.path.exists("{}/Assignment_Solution/Signatures/Assignment_Solution_Signatures.txt".format(output)):
         print("Mutations already profiled\nUse --force to replace existing file")
         if not force:
             profile = False
