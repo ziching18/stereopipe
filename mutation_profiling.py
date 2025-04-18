@@ -16,7 +16,7 @@ def main(samples, output, input_type, context_type, force, threshold=0.25):
         "Lymphoid_signatures"
     ]
 
-    d = output.split("/")[-1]
+    d = output.split("/")[-2]
 
     profile = True
 
