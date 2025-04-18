@@ -37,7 +37,7 @@ def main(samples, output, input_type, context_type, force, threshold=0.25):
     
     import pandas as pd
 
-    df = pd.read_csv("{}/Assignment_Solution/Signatures/Assignment_Solution_Signatures.txt", sep="\t")
+    df = pd.read_csv("{}/Assignment_Solution/Signatures/Assignment_Solution_Signatures.txt".format(output), sep="\t")
 
     dfs = []
     df.sort_values(by="SBS2", ascending=False, inplace=True)
