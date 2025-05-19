@@ -11,6 +11,6 @@ touch $path/coords/$TUM_ID.somatic.$muttype.coords.txt;
 while read line; do 
 	chr=$(echo $line | awk '{print $1}');
     pos=$(echo $line | awk '{print $2}');
-    file=$($path/bams/all/$TUM_ID.somatic.chr$chr.$pos.all.bam)
+    file=$path/bams/all/$TUM_ID.somatic.chr$chr.$pos.all.bam
     samtools view $file | awk '{print $1,$(NF-1),$NF}' >> $path/coords/$TUM_ID.somatic.$muttype.coords.txt;
 done < /stereoseq/all_samples/vcf/$TUM_ID/$TUM_ID.somatic.filtered5.funcotated.vcf
