@@ -7,7 +7,7 @@ path=$(echo /stereoseq/all_samples/mutations/$TUM_ID);
 #     samtools view $file | awk '{print $1,$(NF-1),$NF}' >> $path/coords/$TUM_ID.somatic.$muttype.coords.txt;
 # done
 
-touch $path/coords/$TUM_ID.somatic.$muttype.coords.txt;
+> $path/coords/$TUM_ID.somatic.$muttype.coords.txt;
 while read line; do 
 	chr=$(echo $line | awk '{print $1}');
     pos=$(echo $line | awk '{print $2}');
