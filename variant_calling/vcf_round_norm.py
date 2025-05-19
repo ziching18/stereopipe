@@ -132,4 +132,4 @@ if __name__ == "__main__":
     parser.add_argument("--muttype")
     parser.add_argument("--force", action="store_true")
     args = parser.parse_args()
-    main(args.sample, args.bin_size, args.dir, args.force)
+    main(args.sample, args.bin_size, args.dir, args.muttype, args.force)
