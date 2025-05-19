@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import numpy as np
 import math
 import stereo as st
 import warnings
@@ -26,6 +27,13 @@ def norm_log(x, d=False): # for pd.Series, not pd.DataFrame, full 18115
 
 def main(sample, bin_size, dir, muttype, force):
     d = sample
+    norm = True
+    datalist = [
+        "SD507","SD560","SD1043", # A3B del/del
+        "SD1182","SD1225", # A3B del/WT
+        "SD683","SD693","SD781" # WT
+    ]
+    i = datalist.index(d)
     round = True
     
     if os.path.exists("{0}/{1}.somatic.mutations.rounded{2}.xlsx".format(d, dir, bin_size)):
