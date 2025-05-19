@@ -36,13 +36,13 @@ def main(sample, bin_size, dir, muttype, force):
     i = datalist.index(d)
     round = True
     
-    if os.path.exists("{0}/{1}.somatic.mutations.rounded{2}.xlsx".format(d, dir, bin_size)):
-        print("Mutations already rounded sis\nUse --force to replace existing file")
-        if not force:
-            round = False
+    # if os.path.exists("{0}/{1}.somatic.mutations.rounded{2}.xlsx".format(d, dir, bin_size)):
+    #     print("Mutations already rounded sis\nUse --force to replace existing file")
+    #     if not force:
+    #         round = False
     
     if round:
-        writer = pd.ExcelWriter("{0}/{1}.somatic.mutations.rounded{2}.xlsx".format(dir, d, bin_size), mode="w", engine="openpyxl")
+        #writer = pd.ExcelWriter("{0}/{1}.somatic.mutations.rounded{2}.xlsx".format(dir, d, bin_size), mode="w", engine="openpyxl")
 
         print(muttype)
         found = True
@@ -75,7 +75,7 @@ def main(sample, bin_size, dir, muttype, force):
             df_round.drop(columns=["index"], inplace=True)
             df_round.rename(columns={0: "%s_count" % muttype}, inplace=True)
 
-            df_round.to_csv("{0}/{1}.somatic.mutations.{3}.rounded{2}.xlsx".format(dir, d, bin_size, muttype))
+            df_round.to_csv("{0}/{1}.somatic.mutations.{3}.rounded{2}.csv".format(dir, d, bin_size, muttype))
 
         # if os.path.exists("{0}/{1}.somatic.mutations.bin{2}.normlog.xlsx".format(dir, d, bin_size)):
         # print("Mutations already normalised sis\nUse --force to replace existing file")
@@ -119,7 +119,7 @@ def main(sample, bin_size, dir, muttype, force):
             except ZeroDivisionError:
                 print("zero")
 
-            df_norm.to_csv("{0}/{1}.somatic.mutations.{3}.normlog{2}.xlsx".format(dir, d, bin_size, muttype))
+            df_norm.to_csv("{0}/{1}.somatic.mutations.{3}.normlog{2}.csv".format(dir, d, bin_size, muttype))
                 
         #writer.close()
 
