@@ -17,5 +17,5 @@ while read line; do
     file=$path/bams/all/$TUM_ID.somatic.chr$chr.$pos.all.bam
     while read line2; do
         echo $chr $pos $ref $alt $gene $(echo line2 | awk '{print $1,$(NF-1),$NF}') >> $path/coords/$TUM_ID.somatic.$muttype.coords.txt;
-    done < samtools view $file
+    done < <(samtools view $file)
 done < /stereoseq/all_samples/vcf/$TUM_ID/$TUM_ID.somatic.filtered5.funcotated.vcf
