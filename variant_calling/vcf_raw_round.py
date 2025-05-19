@@ -17,7 +17,7 @@ def main(sample, bin_size, dir, muttype, force):
     print(muttype)
     found = True
     try: df = pd.read_csv("{0}/coords/{1}.somatic.{2}.coords.txt".format(dir, d, muttype), delimiter=" ", 
-                            names=["chromosome","position","ref","alt","gene","transcript_id","x_raw","y_raw"], header=None)
+                            names=["chromosome","position","ref","alt","gene","context","transcript_id","x_raw","y_raw"], header=None)
     except FileNotFoundError: 
         found = False
         print("File not found sis bad luck")
