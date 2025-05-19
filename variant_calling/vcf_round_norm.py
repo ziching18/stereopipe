@@ -66,6 +66,7 @@ def main(sample, bin_size, dir, muttype, force):
             ## rounding
             df["round_x"] = [math.floor(x/bin_size)*bin_size for x in df["x"].values]
             df["round_y"] = [math.floor(y/bin_size)*bin_size for y in df["y"].values]
+            df.to_csv("{0}/{1}.somatic.mutations.{3}.raw.rounded{2}.csv".format(dir, d, bin_size, muttype))
 
             #df.drop(columns=[1,2], inplace=True)
             #df.rename(columns={0:"read"}, inplace=True)
@@ -75,7 +76,7 @@ def main(sample, bin_size, dir, muttype, force):
             df_round.drop(columns=["index"], inplace=True)
             df_round.rename(columns={0: "%s_count" % muttype}, inplace=True)
 
-            df_round.to_csv("{0}/{1}.somatic.mutations.{3}.rounded{2}.csv".format(dir, d, bin_size, muttype))
+            df_round.to_csv("{0}/{1}.somatic.mutations.{3}.raw.rounded{2}.csv".format(dir, d, bin_size, muttype))
 
         # if os.path.exists("{0}/{1}.somatic.mutations.bin{2}.normlog.xlsx".format(dir, d, bin_size)):
         # print("Mutations already normalised sis\nUse --force to replace existing file")
