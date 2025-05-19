@@ -1,6 +1,28 @@
 import pandas as pd
 import os
 import math
+import stereo as st
+import warnings
+warnings.filterwarnings('ignore')
+
+def normalize(arr, t_min, t_max):
+    norm_arr = []
+    diff = t_max - t_min
+    diff_arr = max(arr) - min(arr)
+    for i in arr:
+        temp = (((i - min(arr))*diff)/diff_arr) + t_min
+        norm_arr.append(temp)
+    return norm_arr
+
+def norm_log(x, d=False): # for pd.Series, not pd.DataFrame, full 18115
+    if not isinstance(d, bool):
+        nor_x = x * 10000 / d.sum(axis=1).values
+    else:
+        nor_x = x * 10000 / cr.sum(axis=1).values
+    nor_x.replace([np.inf, -np.inf], 0, inplace=True)
+    nor_x = nor_x.fillna(0)
+    log_x = np.log1p(nor_x) # log(1 + x)
+    return log_x
 
 def main(sample, bin_size, dir, muttype, force):
     d = sample
@@ -16,7 +38,8 @@ def main(sample, bin_size, dir, muttype, force):
 
         print(muttype)
         found = True
-        try: df = pd.read_csv("{0}/coords/{1}.somatic.{2}.coords.txt".format(dir, d, muttype), delimiter=" ", header=None)
+        try: df = pd.read_csv("{0}/coords/{1}.somatic.{2}.coords.txt".format(dir, d, muttype), delimiter=" ", 
+                              names=["chromosome","position","ref","at","gene","transcript_id","x_raw","y_raw"], header=None)
         except FileNotFoundError: 
             found = False
             print("File not found sis bad luck")
@@ -27,8 +50,8 @@ def main(sample, bin_size, dir, muttype, force):
             x = []
             y = []
             for i in range(len(df)):
-                x.append(int(df[1][i].split(":")[-1]))   
-                y.append(int(df[2][i].split(":")[-1]))                
+                x.append(int(df["x_raw"][i].split(":")[-1]))   
+                y.append(int(df["y_raw"][i].split(":")[-1]))                
             df["x"] = x
             df["y"] = y
 
@@ -36,60 +59,61 @@ def main(sample, bin_size, dir, muttype, force):
             df["round_x"] = [math.floor(x/bin_size)*bin_size for x in df["x"].values]
             df["round_y"] = [math.floor(y/bin_size)*bin_size for y in df["y"].values]
 
-            df.drop(columns=[1,2], inplace=True)
-            df.rename(columns={0:"read"}, inplace=True)
+            #df.drop(columns=[1,2], inplace=True)
+            #df.rename(columns={0:"read"}, inplace=True)
 
             df_round = df.groupby(["round_x","round_y"]).size().reset_index()
             df_round = df_round.reset_index()
             df_round.drop(columns=["index"], inplace=True)
             df_round.rename(columns={0: "%s_count" % muttype}, inplace=True)
 
-            df_round.to_excel(writer, sheet_name=muttype)
+            df_round.to_csv("{0}/{1}.somatic.mutations.{3}.rounded{2}.xlsx".format(dir, d, bin_size, muttype))
 
-        if os.path.exists("{0}/{1}.somatic.mutations.bin{2}.normlog.xlsx".format(dir, d, bin_size)):
-        print("Mutations already normalised sis\nUse --force to replace existing file")
-        if not force:
-            norm = False
+        # if os.path.exists("{0}/{1}.somatic.mutations.bin{2}.normlog.xlsx".format(dir, d, bin_size)):
+        # print("Mutations already normalised sis\nUse --force to replace existing file")
+        # if not force:
+        #     norm = False
     
-    if norm:
-        data_path = "/stereoseq/all_samples/h5ad/bin{1}/{0}.bin{1}.processed.h5ad".format(d, bin_size)
-        data = st.io.read_stereo_h5ad(file_path=data_path)
-        cr = data.raw.to_df()
-        pos = data.position
+    #if norm:
+            data_path = "/stereoseq/all_samples/h5ad/bin{1}/{0}.bin{1}.processed.h5ad".format(d, bin_size)
+            data = st.io.read_stereo_h5ad(file_path=data_path)
+            cr = data.raw.to_df()
+            pos = data.position
 
-        writer = pd.ExcelWriter("{0}/{1}.somatic.mutations.bin{2}.normlog.xlsx".format(dir, d, bin_size), mode="w", engine="openpyxl")
+        #writer = pd.ExcelWriter("{0}/{1}.somatic.mutations.bin{2}.normlog.xlsx".format(dir, d, bin_size), mode="w", engine="openpyxl")
         
-        for muttype in muttypes:
-            print(muttype)
-            found = True
-            try: df = pd.read_excel("{0}/{1}.somatic.mutations.rounded{2}.xlsx".format(dir, d, bin_size), muttype, index_col=0)
-            except ValueError:
-                found = False
-                print("Sheet not found sis bad luck")
+        #for muttype in muttypes:
+            # print(muttype)
+            # found = True
+            # try: df = pd.read_excel("{0}/{1}.somatic.mutations.rounded{2}.xlsx".format(dir, d, bin_size), muttype, index_col=0)
+            # except ValueError:
+            #     found = False
+            #     print("Sheet not found sis bad luck")
             
-            if found:
-                print(df.head())
-                odf = pd.DataFrame(index=data.cells.cell_name)
-                odf["index"] = list(data.cells.cell_name)
-                odf["x"] = pos[:,0]
-                odf["y"] = pos[:,1]
-                odf["total_counts"] = data.raw.cells["total_counts"]
+            #if found:
+            print(df_round.head())
+            odf = pd.DataFrame(index=data.cells.cell_name)
+            odf["index"] = list(data.cells.cell_name)
+            odf["round_x"] = pos[:,0]
+            odf["round_y"] = pos[:,1]
+            odf["total_counts"] = data.raw.cells["total_counts"]
 
-                df = pd.merge(odf, df.rename(columns={"round_x": "x", "round_y": "y"}), how='left')
-                df.index = df["index"]
-                df = df.drop(columns=["index"])
-                df.fillna(0, inplace=True)
-                df["%s_count"%muttype] = df["%s_count"%muttype].astype("int")
+            df_norm = pd.merge(odf, df_round, how='left') #
+            df_norm = df_norm.rename(columns={"round_x": "x", "round_y": "y"})
+            df_norm.index = df_norm["index"]
+            df_norm = df_norm.drop(columns=["index"])
+            df_norm.fillna(0, inplace=True)
+            df_norm["%s_count"%muttype] = df["%s_count"%muttype].astype("int")
 
-                ## normalised and logged
-                normlogged = norm_log(df["%s_count"%muttype], cr.loc[df.index])
-                try: df["normlog%s"%muttype] = normalize(normlogged,0,1)
-                except ZeroDivisionError:
-                    print("zero")
-                    continue
-                df.to_excel(writer, sheet_name=muttype)
+            ## normalised and logged
+            normlogged = norm_log(df_norm["%s_count"%muttype], df_norm.loc[df_norm.index])
+            try: df_norm["normlog%s"%muttype] = normalize(normlogged,0,1)
+            except ZeroDivisionError:
+                print("zero")
+
+            df_norm.to_csv("{0}/{1}.somatic.mutations.{3}.normlog{2}.xlsx".format(dir, d, bin_size, muttype))
                 
-        writer.close()
+        #writer.close()
 
 if __name__ == "__main__":
     import argparse
