@@ -4,7 +4,7 @@ cd /stereoseq/all_samples/vcf/${TUM_ID}/;
 
 ## VEP
 /home/ubuntu/tools/ensembl-vep/vep \
---input_file /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.somatic.filtered7.funcotated \
+--input_file /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.somatic.filtered7.funcotated.vcf \
 --output_file /stereoseq/all_samples/vcf/${TUM_ID}/annotated_vcf/${TUM_ID}.somatic.funcotated.vep.vcf \
 --format vcf --vcf --symbol --terms SO --tsl --biotype \
 --hgvs --fasta /stereoseq/reference/GRCh38.109.fa \
