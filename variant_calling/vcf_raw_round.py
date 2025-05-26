@@ -13,11 +13,14 @@ def main(sample, bin_size, dir, muttype, force):
     ]
     i = datalist.index(d)
     round = True
+    names = ["chromosome","position","ref","alt","gene","context",\
+             "variantClassification","variantType","genomeChange","cDnaChange","codonChange","proteinChange",\
+             "transcript_id","x_raw","y_raw"]
 
     print(muttype)
     found = True
-    try: df = pd.read_csv("{0}/coords/{1}.somatic.{2}.coords.txt".format(dir, d, muttype), delimiter=" ", 
-                            names=["chromosome","position","ref","alt","gene","context","transcript_id","x_raw","y_raw"], header=None)
+    try: df = pd.read_csv("{0}/coords/{1}.somatic.{2}.coords.txt".format(dir, d, muttype), delimiter=",", 
+                            names=names, header=None)
     except FileNotFoundError: 
         found = False
         print("File not found sis bad luck")
