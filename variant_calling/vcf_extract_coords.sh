@@ -24,9 +24,9 @@ while read line; do
     file=$path/bams/all/$TUM_ID.somatic.chr$chr.$pos.all.bam;
     
     while read line2; do
-        transcriptID=$(echo $line2 | awk '{print $1')
-        x=$(echo $line2 | awk '{print $(NF-1)')
-        y=$(echo $line2 | awk '{print $NF')
+        transcriptID=$(echo $line2 | awk '{print $1}')
+        x=$(echo $line2 | awk '{print $(NF-1)}')
+        y=$(echo $line2 | awk '{print $NF}')
         echo $chr,$pos,$ref,$alt,$gene,$context,$variantClassification,\
         $variantType,$genomeChange,$cDnaChange,$codonChange,$proteinChange,\
         $transcriptID,$x,$y >> $path/coords/$TUM_ID.somatic.$muttype.coords.txt;
