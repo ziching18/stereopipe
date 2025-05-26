@@ -19,13 +19,13 @@ tabix -p vcf /stereoseq/all_samples/vcf/${TUM_ID}/annotated_vcf/${TUM_ID}.somati
 
 ## Phased VCF
 ### Index all mutations VCF
-tabix -p vcf /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.all.vcf ;
+# tabix -p vcf /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.all.vcf ;
 
 ### Sort all mutations VCF
-/home/ubuntu/tools/gatk-4.4.0.0/gatk SortVcf \
--I /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.all.vcf \
--O /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.all.sorted.vcf \
--SD /stereoseq/reference/GRCh38.109.dict ;
+# /home/ubuntu/tools/gatk-4.4.0.0/gatk SortVcf \
+# -I /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.all.vcf \
+# -O /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.all.sorted.vcf \
+# -SD /stereoseq/reference/GRCh38.109.dict ;
 
 ### Create phased VCF w/ WhatsHap v2.3
 whatshap phase \
