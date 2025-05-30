@@ -1,6 +1,6 @@
 TUM_ID=$1;
 
-lines1=$(wc -l < /stereoseq/all_samples/neoantigens/$TUM_ID/$TUM_ID_stereo_TUM.filtered.tsv)
+lines1=$(wc -l < /stereoseq/all_samples/neoantigens/$TUM_ID/${TUM_ID}_stereo_TUM.filtered.tsv)
 lines2=$(($lines1 - 1))
 echo $(head -1 /stereoseq/all_samples/neoantigens/$TUM_ID/${TUM_ID}_stereo_TUM.filtered.tsv) \
 $(grep "#" /stereoseq/all_samples/vcf/$TUM_ID/$TUM_ID.somatic.filtered7.funcotated.vcf | tail -1) \
