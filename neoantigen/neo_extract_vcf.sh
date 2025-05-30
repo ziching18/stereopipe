@@ -5,7 +5,7 @@ cd /stereoseq/all_samples/neoantigens/$TUM_ID;
 ## remove spaces in the header
 sed -i 's/ /_/g' /stereoseq/all_samples/neoantigens/$TUM_ID/${TUM_ID}_stereo_TUM.filtered.tsv;
 # | head -1 \
-# > /stereoseq/all_samples/neoantigens/$TUM_ID/$TUM_ID.neoantigens.all.vcf.tsv;
+> /stereoseq/all_samples/neoantigens/$TUM_ID/$TUM_ID.neoantigens.all.vcf.tsv;
 
 lines1=$(wc -l < /stereoseq/all_samples/neoantigens/$TUM_ID/${TUM_ID}_stereo_TUM.filtered.tsv)
 lines2=$(($lines1 - 1))
