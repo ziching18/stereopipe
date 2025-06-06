@@ -1,6 +1,6 @@
 TUM_ID=$1;
 muttype=$2;
-path1=$(echo /stereoseq/all_samples/vcf/$TUM_ID);
+path1=$(echo /stereoseq/all_samples/mutations/$TUM_ID);
 path2=$(echo /stereoseq/all_samples/neoantigens/$TUM_ID);
 
 # for file in $(ls $path/bams/$muttype/*.$muttype.bam); do
