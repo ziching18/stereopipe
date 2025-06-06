@@ -36,6 +36,6 @@ while read line; do
         echo $chr,$pos,$ref,$alt,$gene,$context,$variantClassification,\
         $variantType,$genomeChange,$cDnaChange,$codonChange,$proteinChange,\
         $transcript,$hlaAllele,$MTpeptide,$WTpeptide,\
-        $transcriptID,$x,$y >> $path1/coords/$TUM_ID.somatic.neoantigens.$muttype.coords.txt;
+        $transcriptID,$x,$y >> $path2/coords/$TUM_ID.somatic.neoantigens.$muttype.coords.txt;
     done < <(samtools view $file)
 done < /stereoseq/all_samples/neoantigens/$TUM_ID/$TUM_ID.somatic.neoantigens.all.vcf.tsv
