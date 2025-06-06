@@ -1,13 +1,14 @@
 TUM_ID=$1;
 muttype=$2;
-path=$(echo /stereoseq/all_samples/neoantigens/$TUM_ID);
+path1=$(echo /stereoseq/all_samples/vcf/$TUM_ID);
+path2=$(echo /stereoseq/all_samples/neoantigens/$TUM_ID);
 
 # for file in $(ls $path/bams/$muttype/*.$muttype.bam); do
 #     touch $path/coords/$TUM_ID.neoantigens.$muttype.coords.txt;
 #     samtools view $file | awk '{print $1,$(NF-1),$NF}' >> $path/coords/$TUM_ID.neoantigens.$muttype.coords.txt;
 # done
 
-> $path/coords/$TUM_ID.somatic.neoantigens.$muttype.coords.txt;
+> $path2/coords/$TUM_ID.somatic.neoantigens.$muttype.coords.txt;
 while read line; do 
 	chr=$(echo $line | awk '{print $1}');
     pos=$(echo $line | awk '{print $2}');
@@ -26,7 +27,7 @@ while read line; do
 	MTpeptide=$(echo $line | awk '{print $(NF-1)}');
 	WTpeptide=$(echo $line | awk '{print $NF}');
     
-    file=$path/bams/all/$TUM_ID.somatic.chr$chr.$pos.all.bam;
+    file=$path1/bams/all/$TUM_ID.somatic.chr$chr.$pos.all.bam;
     
     while read line2; do
         transcriptID=$(echo $line2 | awk '{print $1}')
@@ -35,6 +36,6 @@ while read line; do
         echo $chr,$pos,$ref,$alt,$gene,$context,$variantClassification,\
         $variantType,$genomeChange,$cDnaChange,$codonChange,$proteinChange,\
         $transcript,$hlaAllele,$MTpeptide,$WTpeptide,\
-        $transcriptID,$x,$y >> $path/coords/$TUM_ID.somatic.neoantigens.$muttype.coords.txt;
+        $transcriptID,$x,$y >> $path1/coords/$TUM_ID.somatic.neoantigens.$muttype.coords.txt;
     done < <(samtools view $file)
 done < /stereoseq/all_samples/neoantigens/$TUM_ID/$TUM_ID.somatic.neoantigens.all.vcf.tsv
