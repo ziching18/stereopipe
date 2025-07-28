@@ -5,7 +5,7 @@ TUM_ID=$1;
 # --skiprows $rows --in_dir "/stereoseq/all_samples/vcf/${TUM_ID}" \
 # --out_dir "/stereoseq/all_samples/mutations/${TUM_ID}/variants";
 
-bash /stereoseq/code/stereopipe/neoantigen/neo_extract_vcf.sh ${TUM_ID};
+# bash /stereoseq/code/stereopipe/neoantigen/neo_extract_vcf.sh ${TUM_ID};
 
 bash /stereoseq/code/stereopipe/neoantigen/neo_extract_coords.sh ${TUM_ID} filtered;
 
