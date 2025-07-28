@@ -13,8 +13,8 @@ def main(sample, bin_size, dir, muttype, force):
     ]
     i = datalist.index(d)
     round = True
-    names = ["chromosome","position","ref","alt","gene","context",\
-             "variantClassification","variantType","genomeChange","cDnaChange","codonChange","proteinChange",\
+    names = ["chr","pos","ref","alt","gene","context","variantClassification",\
+             "variantType","annotationTranscript","transcriptStrand","genomeChange","cDnaChange","codonChange","proteinChange",\
              "transcript","hlaAllele","MTpeptide","WTpeptide",\
              "transcript_id","x_raw","y_raw"]
 

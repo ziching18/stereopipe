@@ -15,13 +15,15 @@ while read line; do
     ref=$(echo $line | awk '{print $4}');
     alt=$(echo $line | awk '{print $5}');
     gene=$(echo $line | awk '{print $8}' | awk -F'[][]' '{match($2, /^[^|]+/, a); print a[0]}');
-    context=$(echo $line | cut -d '|' -f 22);
     variantClassification=$(echo $line | awk '{print $8}' | cut -d '|' -f 7);
     variantType=$(echo $line | awk '{print $8}' | cut -d '|' -f 9);
+    annotationTranscript=$(echo $line | awk '{print $8}' | cut -d '|' -f 14);
+    transcriptStrand=$(echo $line | awk '{print $8}' | cut -d '|' -f 15);
     genomeChange=$(echo $line | awk '{print $8}' | cut -d '|' -f 13);
     cDnaChange=$(echo $line | awk '{print $8}' | cut -d '|' -f 18);
     codonChange=$(echo $line | awk '{print $8}' | cut -d '|' -f 19);
     proteinChange=$(echo $line | awk '{print $8}' | cut -d '|' -f 20);
+    context=$(echo $line | cut -d '|' -f 22);
     transcript=$(echo $line | awk '{print $(NF-3)}');
 	hlaAllele=$(echo $line | awk '{print $(NF-2)}');
 	MTpeptide=$(echo $line | awk '{print $(NF-1)}');
@@ -34,7 +36,7 @@ while read line; do
         x=$(echo $line2 | awk '{print $(NF-1)}')
         y=$(echo $line2 | awk '{print $NF}')
         echo $chr,$pos,$ref,$alt,$gene,$context,$variantClassification,\
-        $variantType,$genomeChange,$cDnaChange,$codonChange,$proteinChange,\
+        $variantType,$annotationTranscript,$transcriptStrand,$genomeChange,$cDnaChange,$codonChange,$proteinChange,\
         $transcript,$hlaAllele,$MTpeptide,$WTpeptide,\
         $transcriptID,$x,$y >> $path2/coords/$TUM_ID.somatic.neoantigens.$muttype.coords.txt;
     done < <(samtools view $file)
