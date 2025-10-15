@@ -33,4 +33,4 @@ while read line; do
         $variantType,$annotationTranscript,$transcriptStrand,$genomeChange,$cDnaChange,$codonChange,$proteinChange,\
         $transcriptID,$x,$y >> $path/coords/$TUM_ID.somatic.$muttype.coords.txt;
     done < <(samtools view $file)
-done < /stereoseq/all_samples/vcf/$TUM_ID/$TUM_ID.somatic.filtered5.funcotated.vcf
+done < /stereoseq/all_samples/vcf/$TUM_ID/$TUM_ID.MT.vcf ## change to $muttype in the future

@@ -33,39 +33,39 @@ def main(sample, skiprows, in_dir, out_dir, force):
         df.insert(5, "GENE", col)
         df.to_csv("{0}/{1}.somatic.all.tsv".format(out_dir, d), sep="\t", header=False)
 
-        driver_genes = ["TP53","PIK3CA","GATA3","MAP3K1","KMT2C","PTEN","CBFB","CDH1","AKT1","NF1"]
-        for gene in driver_genes:
-            dfgene = df[df["GENE"]==gene]
-            if len(dfgene) > 0:
-                dfgene.to_csv("{0}/{1}.somatic.{2}.tsv".format(out_dir, d, gene), sep="\t", header=False) ## ga
+        # driver_genes = ["TP53","PIK3CA","GATA3","MAP3K1","KMT2C","PTEN","CBFB","CDH1","AKT1","NF1"]
+        # for gene in driver_genes:
+        #     dfgene = df[df["GENE"]==gene]
+        #     if len(dfgene) > 0:
+        #         dfgene.to_csv("{0}/{1}.somatic.{2}.tsv".format(out_dir, d, gene), sep="\t", header=False) ## ga
 
-        ## extract mutations
-        changes = [
-            ("C","T"),
-            ("G","A"),
-            ("A","T")
-        ]
-        for c in changes:
-            df[(df["REF"]==c[0]) & (df["ALT"]==c[1])].to_csv("{0}/{1}.somatic.{2}{3}.tsv".format(out_dir, d, c[0], c[1]), sep="\t", header=False)
+        # ## extract mutations
+        # changes = [
+        #     ("C","T"),
+        #     ("G","A"),
+        #     ("A","T")
+        # ]
+        # for c in changes:
+        #     df[(df["REF"]==c[0]) & (df["ALT"]==c[1])].to_csv("{0}/{1}.somatic.{2}{3}.tsv".format(out_dir, d, c[0], c[1]), sep="\t", header=False)
 
-        ## extract context
-        df1 = df[(df.REF.str.len()==1) & (df.ALT.str.len()==1)]
-        up = []
-        down = []
-        up2 = []
-        for seq in df1.context:
-            up2.append(seq[math.ceil(len(seq)/2)-3])
-            up.append(seq[math.ceil(len(seq)/2)-2])
-            down.append(seq[math.ceil(len(seq)/2)])
-        df1["UP2"] = up2
-        df1["UP"] = up
-        df1["DOWN"] = down
+        # ## extract context
+        # df1 = df[(df.REF.str.len()==1) & (df.ALT.str.len()==1)]
+        # up = []
+        # down = []
+        # up2 = []
+        # for seq in df1.context:
+        #     up2.append(seq[math.ceil(len(seq)/2)-3])
+        #     up.append(seq[math.ceil(len(seq)/2)-2])
+        #     down.append(seq[math.ceil(len(seq)/2)])
+        # df1["UP2"] = up2
+        # df1["UP"] = up
+        # df1["DOWN"] = down
 
-        ta = df1[(df1["UP"]=="T") & (df1["DOWN"]=="A")]
-        tca = ta[(ta["REF"]=="C") & (ta["ALT"]=="T")]
-        tca.to_csv("{0}/{1}.somatic.TCA.tsv".format(out_dir, d), sep="\t", header=False)
-        tca[(tca["UP2"]=="T") | (tca["UP2"]=="C")].to_csv("{0}/{1}.somatic.YTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ct
-        tca[(tca["UP2"]=="G") | (tca["UP2"]=="A")].to_csv("{0}/{1}.somatic.RTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ga
+        # ta = df1[(df1["UP"]=="T") & (df1["DOWN"]=="A")]
+        # tca = ta[(ta["REF"]=="C") & (ta["ALT"]=="T")]
+        # tca.to_csv("{0}/{1}.somatic.TCA.tsv".format(out_dir, d), sep="\t", header=False)
+        # tca[(tca["UP2"]=="T") | (tca["UP2"]=="C")].to_csv("{0}/{1}.somatic.YTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ct
+        # tca[(tca["UP2"]=="G") | (tca["UP2"]=="A")].to_csv("{0}/{1}.somatic.RTCA.tsv".format(out_dir, d), sep="\t", header=False) ## ga
 
         
 
