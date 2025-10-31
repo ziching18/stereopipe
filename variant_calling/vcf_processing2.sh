@@ -1,14 +1,20 @@
 TUM_ID=$1;
 FORCE=$2;
-# rows=$(grep "#" /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.somatic.funcotated.vcf | wc -l);
 
-# python3 /stereoseq/code/stereopipe/variant_calling/vcf_filter_variants.py -s ${TUM_ID} \
-# --skiprows $rows --in_dir "/stereoseq/all_samples/vcf/${TUM_ID}" \
-# --out_dir "/stereoseq/all_samples/mutations/${TUM_ID}/variants";
+## read FilterMutectCalls + Funcotator VCF
+rows=$(grep "#" /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.somatic.filtered1.funcotated.vcf | wc -l);
 
-# bash /stereoseq/code/stereopipe/variant_calling/vcf_extract_reads.sh ${TUM_ID} all;
+## 1. Extract VCF information (all): vcf_extract_info.py
+python3 /stereoseq/code/stereopipe/variant_calling/vcf_extract_info.py -s ${TUM_ID} \
+--skiprows $rows --in_dir "/stereoseq/all_samples/vcf/${TUM_ID}" \
+--out_dir "/stereoseq/all_samples/mutations/${TUM_ID}/variants" $FORCE;
 
-bash /stereoseq/code/stereopipe/variant_calling/vcf_extract_coords.sh ${TUM_ID} filtered;
+## 2. Extract reads from corresponding bams (all): vcf_extract_reads.sh
+bash /stereoseq/code/stereopipe/variant_calling/vcf_extract_reads.sh ${TUM_ID} all;
 
+## 3. Extract coordinates from corresponding bams (specific subsets), input VCF should have NO header: vcf_extract_coords.sh
+bash /stereoseq/code/stereopipe/variant_calling/vcf_extract_coords.sh ${TUM_ID} filtered somatic.filtered5;
+
+## 4. Round coordinates to nearest bin_size: vcf_raw_round.py
 python3 /stereoseq/code/stereopipe/variant_calling/vcf_raw_round.py -s ${TUM_ID} \
---bin_size 100 --dir "/stereoseq/all_samples/mutations/${TUM_ID}" --muttype filtered $FORCE;
+--bin_size 100 --dir "/stereoseq/all_samples/mutations/${TUM_ID}" --muttype filtered ;
