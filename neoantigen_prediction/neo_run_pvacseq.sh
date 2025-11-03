@@ -1,3 +1,7 @@
+# NEOANTIGEN PREDICTION
+## create docker instance and run pvacseq neoantigen prediction
+## to run in docker environment
+
 TUM_ID=$1;
 
 #mkdir /mnt/c/Users/staffgenomics/wsl_workdir/ziching/neo/code/out/output_${TUM_ID};
@@ -11,6 +15,6 @@ sudo docker run \
 -v /home/ziching/neo/data:/data \
 -v /home/ziching/neo/out/output_${TUM_ID}:/output \
 -v /home/ziching/neo/VEP_plugins:/VEP_plugins \
--v /home/ziching/neo/code/stereopipe/neoantigen:/code \
+-v /home/ziching/neo/code/stereopipe/neoantigen_prediction:/code \
 -dit griffithlab/pvactools ;
 sudo docker exec ${TUM_ID}_neo bash -c "bash /code/neo_pvacseq_prediction.sh ${TUM_ID} $hla"; 

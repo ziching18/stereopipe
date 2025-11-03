@@ -1,8 +1,11 @@
+# NEOANTIGEN PREDICTION
+## annotate input VCF prior to pvacseq prediction
+
 TUM_ID=$1;
 
 cd /stereoseq/all_samples/vcf/${TUM_ID}/;
 
-## VEP
+### VEP
 /home/ubuntu/tools/ensembl-vep/vep \
 --input_file /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.somatic.filtered7.funcotated.vcf \
 --output_file /stereoseq/all_samples/vcf/${TUM_ID}/annotated_vcf/${TUM_ID}.somatic.funcotated.vep.vcf \
@@ -12,20 +15,20 @@ cd /stereoseq/all_samples/vcf/${TUM_ID}/;
 --plugin Frameshift --plugin Wildtype \
 --dir_plugins /home/ubuntu/tools/VEP_plugins ;
 
-## bgzip and index the pVACseq main input VCF
+### bgzip and index the pVACseq main input VCF
 bgzip -c /stereoseq/all_samples/vcf/${TUM_ID}/annotated_vcf/${TUM_ID}.somatic.funcotated.vep.vcf \
 > /stereoseq/all_samples/vcf/${TUM_ID}/annotated_vcf/${TUM_ID}.somatic.funcotated.vep.vcf.gz
 tabix -p vcf /stereoseq/all_samples/vcf/${TUM_ID}/annotated_vcf/${TUM_ID}.somatic.funcotated.vep.vcf.gz ;
 
-## Phased VCF
-### Index all mutations VCF
-# tabix -p vcf /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.all.vcf ;
+### Phased VCF
+## Index all mutations VCF
+tabix -p vcf /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.all.vcf ;
 
 ### Sort all mutations VCF
-# /home/ubuntu/tools/gatk-4.4.0.0/gatk SortVcf \
-# -I /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.all.vcf \
-# -O /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.all.sorted.vcf \
-# -SD /stereoseq/reference/GRCh38.109.dict ;
+/home/ubuntu/tools/gatk-4.4.0.0/gatk SortVcf \
+-I /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.all.vcf \
+-O /stereoseq/all_samples/vcf/${TUM_ID}/${TUM_ID}.all.sorted.vcf \
+-SD /stereoseq/reference/GRCh38.109.dict ;
 
 ### Create phased VCF w/ WhatsHap v2.3
 whatshap phase \

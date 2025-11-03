@@ -1,4 +1,7 @@
 # NEOANTIGEN PREDICTION
+## initialise pvacseq object
+## to be saved in docker environment /code
+
 # while read line; do 
 #	slx=$(echo $line | awk '{print $1}'); 
 #	id=$(echo $line | awk '{print $2}'); 

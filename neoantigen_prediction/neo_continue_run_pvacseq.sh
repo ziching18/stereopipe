@@ -1,3 +1,7 @@
+# NEOANTIGEN PREDICTION
+## resume pvacseq neoantigen prediction with created docker instance
+## to run in docker environment
+
 TUM_ID=$1;
 
 hla=$(grep ${TUM_ID} data/all_neoantigens_hla_alleles.txt | awk '{print $NF}');
