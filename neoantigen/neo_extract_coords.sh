@@ -10,6 +10,7 @@ path2=$(echo /stereoseq/all_samples/neoantigens/$TUM_ID);
 
 > $path2/coords/$TUM_ID.somatic.neoantigens.$muttype.coords.txt;
 while read line; do 
+    ## extract information from VCF
 	chr=$(echo $line | awk '{print $1}');
     pos=$(echo $line | awk '{print $2}');
     ref=$(echo $line | awk '{print $4}');
@@ -24,17 +25,23 @@ while read line; do
     codonChange=$(echo $line | awk '{print $8}' | cut -d '|' -f 19);
     proteinChange=$(echo $line | awk '{print $8}' | cut -d '|' -f 20);
     context=$(echo $line | cut -d '|' -f 22);
+
+    ## neoantigen information in last columns
     transcript=$(echo $line | awk '{print $(NF-3)}');
 	hlaAllele=$(echo $line | awk '{print $(NF-2)}');
 	MTpeptide=$(echo $line | awk '{print $(NF-1)}');
 	WTpeptide=$(echo $line | awk '{print $NF}');
     
+    ## define corresponding bam file
     file=$path1/bams/all/$TUM_ID.somatic.chr$chr.$pos.all.bam;
     
     while read line2; do
+        ## extract information from corresponding bam file
         transcriptID=$(echo $line2 | awk '{print $1}')
         x=$(echo $line2 | awk '{print $(NF-1)}')
         y=$(echo $line2 | awk '{print $NF}')
+
+        ## write VCF + bam information into file
         echo $chr,$pos,$ref,$alt,$gene,$context,$variantClassification,\
         $variantType,$annotationTranscript,$transcriptStrand,$genomeChange,$cDnaChange,$codonChange,$proteinChange,\
         $transcript,$hlaAllele,$MTpeptide,$WTpeptide,\

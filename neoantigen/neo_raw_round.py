@@ -4,8 +4,9 @@ import numpy as np
 import math
 
 def main(sample, bin_size, dir, muttype, force):
+    '''Round coordinates to nearest bin_size, normalisation NOT performed here'''
     d = sample
-    norm = True
+
     datalist = [
         "SD507","SD560","SD1043", # A3B del/del
         "SD1182","SD1225", # A3B del/WT
@@ -20,7 +21,7 @@ def main(sample, bin_size, dir, muttype, force):
 
     print(muttype)
     found = True
-    try: df = pd.read_csv("{0}/coords/{1}.somatic.neoantigens.{2}.coords.txt".format(dir, d, muttype), delimiter=",", 
+    try: df = pd.read_csv(f"{dir}/coords/{d}.somatic.neoantigens.{muttype}.coords.txt", delimiter=",", 
                             names=names, header=None)
     except FileNotFoundError: 
         found = False
@@ -40,7 +41,7 @@ def main(sample, bin_size, dir, muttype, force):
         ## rounding
         df["round_x"] = [math.floor(x/bin_size)*bin_size for x in df["x"].values]
         df["round_y"] = [math.floor(y/bin_size)*bin_size for y in df["y"].values]
-        df.to_csv("{0}/{1}.somatic.neoantigens.{3}.raw.rounded{2}.csv".format(dir, d, bin_size, muttype))
+        df.to_csv(f"{dir}/{d}.somatic.neoantigens.{muttype}.raw.rounded{bin_size}.csv")
 
 
 if __name__ == "__main__":
