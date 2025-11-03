@@ -25,7 +25,7 @@ def main(sample, bin_size, dir, muttype, force):
                             names=names, header=None)
     except FileNotFoundError: 
         found = False
-        print("File not found sis bad luck")
+        print("File not found, action not performed.")
 
     if found:
         print(df.head())
