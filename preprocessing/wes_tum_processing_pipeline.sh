@@ -93,7 +93,7 @@ aws s3 cp s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/wes_tum
 --RGLB $(echo ${SLX_ID} | cut -d '.' -f 1) \
 --RGPL Illumina \
 --RGPU ${SLX_ID}.${TUM_ID} \
---RGSM ${TUM_ID}_MN \
+--RGSM ${TUM_ID}_WES_TUM \
 && touch ${TUM_ID}.addr.success || touch ${TUM_ID}.addr.failed ; 
 aws s3 cp ${TUM_ID}.wes_tum.merged.RGA.bam s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/wes_tum_corrected/4_rga_out/ ; 
 rm ${TUM_ID}.wes_tum.merged.bam; 
