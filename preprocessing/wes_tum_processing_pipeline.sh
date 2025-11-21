@@ -2,15 +2,14 @@
 # while read line; do slx=$(echo $line | awk '{print $1}'); id=$(echo $line | awk '{print $2}'); cd /stereoseq/all_samples/normal/$id; bash /stereoseq/code/fastq_preprocessing_pipeline.sh $slx $id; done < /stereoseq/code/samples.txt
 
 # # path slx slx_id id
-# crm.tumorstudy.ngs.raw/	14336	14336.i710_i504	SD0693
-# crm.tumorstudy.ngs.raw/	14336	14336.i709_i505	SD0507
-# crm.tumorstudy.ngs.raw/	14499	14499.i704_i503	SD1043
-# crm.tumorstudy.ngs.raw/	14499	14499.i702_i507	SD0560
-# crm.tumorstudy.ngs.raw/	15093	15093.i704_i502	SD0683
-# crm.tumorstudy.ngs.raw/WES/	15093	15093.i706_i517	SD1182
-# crm.tumorstudy.ngs.raw/WES/	15098	15098.i707_i517	SD0781
-# crm.tumorstudy.ngs.raw/WES/	15098	15098.i710_i517	SD1225
-# crm.tumorstudy.ngs.raw/WES/	15098	15098.i707_i517	SD1043
+# crm.tumorstudy.ngs.raw	14336	14336.i710_i504	SD560
+# crm.tumorstudy.ngs.raw	14336	14336.i709_i505	SD1043
+# crm.tumorstudy.ngs.raw	14499	14499.i704_i503	SD507
+# crm.tumorstudy.ngs.raw	14499	14499.i702_i507	SD693
+# crm.tumorstudy.ngs.raw/WES	15093	15093.i704_i502	SD683
+# crm.tumorstudy.ngs.raw/WES	15093	15093.i706_i517	SD1182
+# crm.tumorstudy.ngs.raw/WES	15098	15098.i710_i517	SD1225
+# crm.tumorstudy.ngs.raw/WES	15098	15098.i707_i517	SD781
 
 CPATH=$1;
 SLX=$2; 
