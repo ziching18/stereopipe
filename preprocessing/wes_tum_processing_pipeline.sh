@@ -18,7 +18,7 @@ TUM_ID=$4;
 cd /stereoseq/all_samples/wes/${TUM_ID}/;
 ### trim
 #ls |
-echo `date "+%Y-%m-%d %H:%M:%S"` "SLX-${SLX_ID} Trim Galore start" >> log.txt
+echo `date "+%Y-%m-%d %H:%M:%S"` "SLX-${SLX_ID} Trim Galore start" #>> log.txt
 ##SLX-14290.i708_i508.HL2T2BBXX.s_8.r_1.fq.gz
 aws s3 ls ${CPATH}/SLX-${SLX}/ | grep SLX-${SLX_ID}. |
 awk '{print $NF}'|
