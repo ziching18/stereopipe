@@ -16,12 +16,12 @@ echo ${TUM_ID}
 
 cd /stereoseq/all_samples/wes/${TUM_ID}/;
 
-aws s3 cp s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/wes_tum_corrected/7_recal_bams/${TUM_ID}.wes_tum.bam ./;
-aws s3 cp s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/wes_tum_corrected/7_recal_bams/${TUM_ID}.wes_tum.bai ./;
+aws s3 cp s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/wes_tum_corrected/7_recal_bams/${TUM_ID}.wes_tum.recal.bam ./;
+aws s3 cp s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/wes_tum_corrected/7_recal_bams/${TUM_ID}.wes_tum.recal.bai ./;
 
 /home/ubuntu/tools/gatk-4.4.0.0/gatk Mutect2 \
 -R /stereoseq/reference/GRCh38.109.fa \
--I /stereoseq/all_samples/wes/${TUM_ID}/${TUM_ID}.wes_tum.bam \
+-I /stereoseq/all_samples/wes/${TUM_ID}/${TUM_ID}.wes_tum.recal.bam \
 -I /stereoseq/all_samples/normal/${TUM_ID}/${TUM_ID}.normal.recal.bam \
 --panel-of-normals /stereoseq/all_samples/normal/${TUM_ID}/${TUM_ID}_pon.vcf.gz \
 -normal ${TUM_ID}_MN \
@@ -33,6 +33,9 @@ aws s3 cp ${TUM_ID}.wes_tum.somatic.vcf.gz s3://crm.steroseq.raw.data/Breast_CAC
 aws s3 cp ${TUM_ID}.wes_tum.somatic.vcf.gz.log s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/wes_tum_corrected/8_vcf/;
 aws s3 cp ${TUM_ID}.wes_tum.somatic.vcf s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/wes_tum_corrected/8_vcf/;
 #--arguments_file /stereoseq/all_samples/normal/${TUM_ID}/${TUM_ID}_normal_names.list \
+
+rm ${TUM_ID}.wes_tum.recal.bam;
+rm ${TUM_ID}.wes_tum.recal.bai;
 
 ## variant filtration pt. 1
 /home/ubuntu/tools/gatk-4.4.0.0/gatk FilterMutectCalls \
