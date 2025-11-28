@@ -24,7 +24,7 @@ cd /stereoseq/all_samples/rnaseq/${TUM_ID}/;
 
 /home/ubuntu/tools/gatk-4.4.0.0/gatk Mutect2 \
 -R /stereoseq/reference/GRCh38.109.fa \
--I /stereoseq/all_samples/wes/${TUM_ID}/${TUM_ID}.RNAseq.recal.bam \
+-I /stereoseq/all_samples/rnaseq/${TUM_ID}/${TUM_ID}.RNAseq.recal.bam \
 -I /stereoseq/all_samples/normal/${TUM_ID}/${TUM_ID}.normal.recal.bam \
 --panel-of-normals /stereoseq/all_samples/normal/${TUM_ID}/${TUM_ID}_pon.vcf.gz \
 -normal ${TUM_ID}_MN \
