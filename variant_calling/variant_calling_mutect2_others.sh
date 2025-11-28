@@ -14,68 +14,71 @@ echo ${TUM_ID}
 #    echo "-normal "$l
 #done > ${TUM_ID}_normal_names.list
 
-cd /stereoseq/all_samples/wes/${TUM_ID}/;
+## wes_tum
+## RNAseq
 
-aws s3 cp s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/wes_tum_corrected/7_recal_bams/${TUM_ID}.wes_tum.recal.bam ./;
-aws s3 cp s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/wes_tum_corrected/7_recal_bams/${TUM_ID}.wes_tum.recal.bai ./;
+cd /stereoseq/all_samples/rnaseq/${TUM_ID}/;
+
+# aws s3 cp s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/rnaseq_tum/5_split_bams/${TUM_ID}.RNAseq.recal.bam ./;
+# aws s3 cp s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/rnaseq_tum/5_split_bams/${TUM_ID}.RNAseq.recal.bai ./;
 
 /home/ubuntu/tools/gatk-4.4.0.0/gatk Mutect2 \
 -R /stereoseq/reference/GRCh38.109.fa \
--I /stereoseq/all_samples/wes/${TUM_ID}/${TUM_ID}.wes_tum.recal.bam \
+-I /stereoseq/all_samples/wes/${TUM_ID}/${TUM_ID}.RNAseq.recal.bam \
 -I /stereoseq/all_samples/normal/${TUM_ID}/${TUM_ID}.normal.recal.bam \
 --panel-of-normals /stereoseq/all_samples/normal/${TUM_ID}/${TUM_ID}_pon.vcf.gz \
 -normal ${TUM_ID}_MN \
 --tmp-dir /stereoseq/tmp \
--O ${TUM_ID}.wes_tum.somatic.vcf.gz \
-2>${TUM_ID}.wes_tum.somatic.vcf.gz.log ; 
-gzip -dkf ${TUM_ID}.wes_tum.somatic.vcf.gz; # unzip
-aws s3 cp ${TUM_ID}.wes_tum.somatic.vcf.gz s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/wes_tum_corrected/8_vcf/;
-aws s3 cp ${TUM_ID}.wes_tum.somatic.vcf.gz.log s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/wes_tum_corrected/8_vcf/;
-aws s3 cp ${TUM_ID}.wes_tum.somatic.vcf s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/wes_tum_corrected/8_vcf/;
+-O ${TUM_ID}.RNAseq.somatic.vcf.gz \
+2>${TUM_ID}.RNAseq.somatic.vcf.gz.log ; 
+gzip -dkf ${TUM_ID}.RNAseq.somatic.vcf.gz; # unzip
+aws s3 cp ${TUM_ID}.RNAseq.somatic.vcf.gz s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/rnaseq_tum/6_vcf/;
+aws s3 cp ${TUM_ID}.RNAseq.somatic.vcf.gz.log s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/rnaseq_tum/6_vcf/;
+aws s3 cp ${TUM_ID}.RNAseq.somatic.vcf s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/rnaseq_tum/6_vcf/;
 #--arguments_file /stereoseq/all_samples/normal/${TUM_ID}/${TUM_ID}_normal_names.list \
 
-rm ${TUM_ID}.wes_tum.recal.bam;
-rm ${TUM_ID}.wes_tum.recal.bai;
+# rm ${TUM_ID}.RNAseq.recal.bam;
+# rm ${TUM_ID}.RNAseq.recal.bai;
 
 ## variant filtration pt. 1
 /home/ubuntu/tools/gatk-4.4.0.0/gatk FilterMutectCalls \
---variant ${TUM_ID}.wes_tum.somatic.vcf.gz \
---output ${TUM_ID}.wes_tum.somatic.mutect2filtered.vcf.gz \
+--variant ${TUM_ID}.RNAseq.somatic.vcf.gz \
+--output ${TUM_ID}.RNAseq.somatic.mutect2filtered.vcf.gz \
 --reference /stereoseq/reference/GRCh38.109.fa
-gzip -dkf ${TUM_ID}.wes_tum.somatic.mutect2filtered.vcf.gz
+gzip -dkf ${TUM_ID}.RNAseq.somatic.mutect2filtered.vcf.gz
 
 ### see filtration results, we want PASS
-grep -v "^#" ${TUM_ID}.wes_tum.somatic.mutect2filtered.vcf | cut -f7 | sort | uniq -c > ${TUM_ID}.wes_tum.filtered_calls.txt
+grep -v "^#" ${TUM_ID}.RNAseq.somatic.mutect2filtered.vcf | cut -f7 | sort | uniq -c > ${TUM_ID}.RNAseq.filtered_calls.txt
 ### filter for PASS
-bcftools view -f PASS ${TUM_ID}.wes_tum.somatic.mutect2filtered.vcf -Oz -o ${TUM_ID}.wes_tum.somatic.filtered1.vcf 
+bcftools view -f PASS ${TUM_ID}.RNAseq.somatic.mutect2filtered.vcf -Oz -o ${TUM_ID}.RNAseq.somatic.filtered1.vcf 
 
 ## funcotator
 /home/ubuntu/tools/gatk-4.4.0.0/gatk Funcotator \
---variant ${TUM_ID}.wes_tum.somatic.filtered1.vcf \
+--variant ${TUM_ID}.RNAseq.somatic.filtered1.vcf \
 --reference /stereoseq/reference/GRCh38.109.fa \
 --ref-version hg38 \
 --data-sources-path /stereoseq/reference/funcotator/funcotator_dataSources.v1.7.20200521s \
---output ${TUM_ID}.wes_tum.somatic.filtered1.funcotated.vcf \
+--output ${TUM_ID}.RNAseq.somatic.filtered1.funcotated.vcf \
 --output-file-format VCF;
 #aws s3 cp ${TUM_ID}.somatic.filtered.funcotated.vcf s3://crm.steroseq.raw.data/Breast_CACRMY/all_samples/${TUM_ID}/vcf_updatedFeb25/;
 
 ## variant filtration pt. 2
 ### VAF < 0.1? + < 3 supporting reads
 ### VAF > 0.8
-bcftools view -e 'FORMAT/AF[1:0] > 0.8' ${TUM_ID}.wes_tum.somatic.filtered1.funcotated.vcf -Oz -o ${TUM_ID}.wes_tum.somatic.filtered2.funcotated.vcf
+bcftools view -e 'FORMAT/AF[1:0] > 0.8' ${TUM_ID}.RNAseq.somatic.filtered1.funcotated.vcf -Oz -o ${TUM_ID}.RNAseq.somatic.filtered2.funcotated.vcf
 ### TLOD < 5.6
-bcftools view -e 'INFO/TLOD < 5.6' ${TUM_ID}.wes_tum.somatic.filtered2.funcotated.vcf -Oz -o ${TUM_ID}.wes_tum.somatic.filtered3.funcotated.vcf
+bcftools view -e 'INFO/TLOD < 5.6' ${TUM_ID}.RNAseq.somatic.filtered2.funcotated.vcf -Oz -o ${TUM_ID}.RNAseq.somatic.filtered3.funcotated.vcf
 ### no short tandem repeats (STR)
-bcftools view -e 'INFO/STR=1' ${TUM_ID}.wes_tum.somatic.filtered3.funcotated.vcf -Oz -o ${TUM_ID}.wes_tum.somatic.filtered4.funcotated.vcf
+bcftools view -e 'INFO/STR=1' ${TUM_ID}.RNAseq.somatic.filtered3.funcotated.vcf -Oz -o ${TUM_ID}.RNAseq.somatic.filtered4.funcotated.vcf
 
 ## variant filtration pt. 3
-grep -v "#" ${TUM_ID}.wes_tum.somatic.filtered4.funcotated.vcf | \
-awk '$1 <= 23 && $1 >=1' > ${TUM_ID}.wes_tum.somatic.filtered5.funcotated.vcf
+grep -v "#" ${TUM_ID}.RNAseq.somatic.filtered4.funcotated.vcf | \
+awk '$1 <= 23 && $1 >=1' > ${TUM_ID}.RNAseq.somatic.filtered5.funcotated.vcf
 # #grep -v "\[HLA" \
-grep "#" ${TUM_ID}.wes_tum.somatic.filtered4.funcotated.vcf > ${TUM_ID}.wes_tum.somatic.filtered6.funcotated.vcf
-awk '$1 <= 23 && $1 >=1' ${TUM_ID}.wes_tum.somatic.filtered4.funcotated.vcf >> ${TUM_ID}.wes_tum.somatic.filtered6.funcotated.vcf
+grep "#" ${TUM_ID}.RNAseq.somatic.filtered4.funcotated.vcf > ${TUM_ID}.RNAseq.somatic.filtered6.funcotated.vcf
+awk '$1 <= 23 && $1 >=1' ${TUM_ID}.RNAseq.somatic.filtered4.funcotated.vcf >> ${TUM_ID}.RNAseq.somatic.filtered6.funcotated.vcf
 
 ## variant filtration pt. 4
-grep -v -e "\[IGH" -e "\[IGK" -e "\[IGL" -e "\[HLA" ${TUM_ID}.wes_tum.somatic.filtered6.funcotated.vcf \
-> ${TUM_ID}.wes_tum.somatic.filtered7.funcotated.vcf
+grep -v -e "\[IGH" -e "\[IGK" -e "\[IGL" -e "\[HLA" ${TUM_ID}.RNAseq.somatic.filtered6.funcotated.vcf \
+> ${TUM_ID}.RNAseq.somatic.filtered7.funcotated.vcf
 #| awk '{print $8}' | cut -d ';' -f 5 |  cut -d '|' -f 1 | cut -d '[' -f 2 > IG.txt
