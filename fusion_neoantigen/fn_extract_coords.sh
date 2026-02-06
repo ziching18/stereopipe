@@ -18,6 +18,7 @@ while read line; do
     chr=$(echo $line | awk '{print $16}');
     start=$(echo $line | awk '{print $17}');
     end=$(echo $line | awk '{print $18}');
+    fullpos=$(echo $chr\:$start\-$stop);
     transcript=$(echo $line | awk '{print $19}');
     
     ## define corresponding bam file
