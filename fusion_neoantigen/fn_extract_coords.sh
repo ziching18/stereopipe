@@ -17,7 +17,7 @@ while read line; do
     variantType=$(echo $line | awk '{print $9}');
     chr=$(echo $line | awk '{print $16}');
     start=$(echo $line | awk '{print $17}');
-    end=$(echo $line | awk '{print $18}');
+    stop=$(echo $line | awk '{print $18}');
     fullpos=$(echo $chr\:$start\-$stop);
     transcript=$(echo $line | awk '{print $19}');
     
@@ -31,7 +31,7 @@ while read line; do
         y=$(echo $line2 | awk '{print $NF}')
 
         ## write FN + bam information into file
-        echo $neopeptide,$hla,$gene,$epitope,$variantType,$chr,$start,$end,$transcript,
+        echo $neopeptide,$hla,$gene,$epitope,$variantType,$chr,$start,$stop,$transcript,
         $transcriptID,$x,$y >> $path/coords/$TUM_ID.$muttype.neoantigens.coords.txt;
     done < <(samtools view $file)
 done < <(grep $TUM_ID $path/stereo_fusion_neopeptides_sep.tsv)
