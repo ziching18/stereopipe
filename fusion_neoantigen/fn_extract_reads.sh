@@ -6,7 +6,7 @@ path=$(echo /stereoseq/all_samples/neoantigens/fusion);
 # linenumber=$(wc -l $path/logs/$TUM_ID.$muttype.log.txt | awk '{print $1}'); ## for resuming job; depracated
 
 ## write number of transcripts in each bam into file
-echo neopeptide hla chr.pos epitope count > $path/counts/$TUM_ID.$neopeptide.$hla.chr$fullpos.$epitope.$muttype.counts.tsv;
+echo neopeptide hla chr.pos epitope count > $path/counts/$TUM_ID.$muttype.counts.tsv;
 while read line; do
     ## define new variant
     neopeptide=$(echo $line | awk '{print $4}');
@@ -24,7 +24,7 @@ while read line; do
     
     ## count number of transcripts in each corresponding bam and write into file
     count=$(samtools view $path/bams/$TUM_ID.$neopeptide.$hla.chr$fullpos.$epitope.$muttype.bam | wc -l | awk '{print $1}');
-    echo $neopeptide $hla chr$fullpos $epitope $count >> $path/counts/$TUM_ID.$neopeptide.$hla.chr$fullpos.$epitope.$muttype.counts.tsv; # writing counts to file
+    echo $neopeptide $hla chr$fullpos $epitope $count >> $path/counts/$TUM_ID.$muttype.counts.tsv; # writing counts to file
 done < <(grep $TUM_ID $path/stereo_fusion_neopeptides_sep.tsv) ## input defined by $muttype, default should be 'all' to extract all somatic.filtered1.funcotated.vcf variants
 
 touch $path/logs/$TUM_ID.$muttype.extract_reads.success;
