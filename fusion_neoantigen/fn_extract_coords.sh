@@ -31,7 +31,7 @@ while read line; do
         y=$(echo $line2 | awk '{print $NF}')
 
         ## write FN + bam information into file
-        echo $neopeptide,$hla,$gene,$epitope,$variantType,$chr,$start,$stop,$transcript,
+        echo $neopeptide,$hla,$gene,$epitope,$variantType,$chr,$start,$stop,$transcript,\
         $transcriptID,$x,$y >> $path/$TUM_ID/coords/$TUM_ID.$muttype.neoantigens.coords.txt;
     done < <(samtools view $file)
 done < <(grep $TUM_ID $path/stereo_fusion_neopeptides_sep.tsv)
