@@ -6,7 +6,7 @@ path=$(echo /stereoseq/all_samples/neoantigens/fusion);
 # linenumber=$(wc -l $path/logs/$TUM_ID.$muttype.log.txt | awk '{print $1}'); ## for resuming job; depracated
 
 ## write number of transcripts in each bam into file
-echo chr pos ref alt gene chr.pos.ref.alt.gene count > $path/counts/$TUM_ID.somatic.vcf.transcript.$muttype.gene.counts.tsv;
+echo neopeptide hla chr.pos epitope count > $path/counts/$TUM_ID.$neopeptide.$hla.chr$fullpos.$epitope.$muttype.counts.tsv;
 while read line; do
     ## define new variant
     neopeptide=$(echo $line | awk '{print $4}');
