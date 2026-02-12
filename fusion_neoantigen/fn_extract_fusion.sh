@@ -7,7 +7,7 @@ path=$(echo /stereoseq/all_samples/neoantigens/fusion);
 #     samtools view $file | awk '{print $1,$(NF-1),$NF}' >> $path/coords/$TUM_ID.neoantigens.$muttype.coords.txt;
 # done
 
-touch $path/$TUM_ID/coords/$TUM_ID.$muttype.neoantigens.confirmed.coords.txt;
+touch $path/$TUM_ID/coords/$TUM_ID.$muttype.confirmed.neoantigens.coords.txt;
 while read line; do 
     ## extract information from FN
 	neopeptide=$(echo $line | awk '{print $4}');
@@ -39,6 +39,6 @@ while read line; do
         y=$(echo "$line2" | awk '{print $NF}')
 
         echo "$neopeptide,$gene,$sequence,$hla,$epitope,$variantType,$chr,$start,$stop,$transcript,\
-              $transcriptID,$readseq,$x,$y" >> "$path/$TUM_ID/coords/$TUM_ID.$muttype.neoantigens.confirmed.coords.txt"
+              $transcriptID,$readseq,$x,$y" >> "$path/$TUM_ID/coords/$TUM_ID.$muttype.confirmed.neoantigens.coords.txt"
     done #< <(samtools view $file | grep $subseq)
 done < <(grep $TUM_ID $path/fusion_neoantigens_confirmed_sequence.tsv)
