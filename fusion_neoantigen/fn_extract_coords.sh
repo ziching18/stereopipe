@@ -11,8 +11,8 @@ touch $path/$TUM_ID/coords/$TUM_ID.$muttype.neoantigens.coords.txt;
 while read line; do 
     ## extract information from FN
 	neopeptide=$(echo $line | awk '{print $4}');
-    hla=$(echo $line | awk '{print $6}');
     gene=$(echo $line | awk '{print $5}');
+    hla=$(echo $line | awk '{print $6}');
     epitope=$(echo $line | awk '{print $8}');
     variantType=$(echo $line | awk '{print $9}');
     chr=$(echo $line | awk '{print $16}');
