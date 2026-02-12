@@ -7,8 +7,12 @@ def main(sample, bin_size, dir, muttype, force):
     '''Round coordinates to nearest bin_size, normalisation NOT performed here'''
 
     round = True
-    names = ["neopeptide","hla","gene","epitope","variantType","chr","start","stop","transcript",
-             "transcript_id","x_raw","y_raw"]
+    if muttype == "fusion":
+        names = ["neopeptide","hla","gene","epitope","variantType","chr","start","stop","transcript",
+                "transcript_id","x_raw","y_raw"]
+    elif muttype == "fusion.confirmed":
+        names = ["fusion","neopeptide","gene","sequence","hla","epitope","variantType","chr","start","stop","transcript",
+                 "transcript_id","readseq","x_raw","y_raw"]
 
     print(muttype)
     found = True
