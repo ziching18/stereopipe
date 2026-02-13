@@ -7,7 +7,7 @@ path=$(echo /stereoseq/all_samples/neoantigens/fusion);
 #     samtools view $file | awk '{print $1,$(NF-1),$NF}' >> $path/coords/$TUM_ID.neoantigens.$muttype.coords.txt;
 # done
 
-touch $path/$TUM_ID/coords/$TUM_ID.$muttype.confirmed.neoantigens.coords.txt;
+> $path/$TUM_ID/coords/$TUM_ID.$muttype.confirmed.neoantigens.coords.txt;
 while read line; do 
     ## extract information from FN
     fusion=$(echo $line | awk '{print $4}');
