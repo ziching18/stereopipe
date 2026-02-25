@@ -213,7 +213,6 @@ if [[ $fqType == 'PE' ]]; then
             --chimScoreJunctionNonGTAG 0 \
             --chimScoreSeparation 1 \
             --chimSegmentReadGapMax 3 \
-            --chimMultimapNmax 50 \
             --alignSJstitchMismatchNmax 5 -1 5 5 \
             --chimOutType WithinBAM HardClip \
             --outSAMunmapped Within \
