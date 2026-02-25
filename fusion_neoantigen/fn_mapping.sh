@@ -2,7 +2,7 @@ cd /stereoseq/
 
 ulimit -n 10240
 ulimit -v 33170449147
-NUMBA_CACHE_DIR=/stereoseq/test/cache
+NUMBA_CACHE_DIR=/stereoseq/tmp
 
 dataDir=/stereoseq/SD507_SD693
 # outDir=/stereoseq/SD507_SD693
