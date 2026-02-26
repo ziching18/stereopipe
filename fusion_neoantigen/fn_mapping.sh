@@ -21,5 +21,5 @@ bash /stereoseq/code/stereopipe/fusion_neoantigen/fn_saw_mapping.sh \
     -tissueType breast_tumour \
     -refIndex $refDir/STAR_SJ100 \
     -annotationFile $refDir/GRCh38.109.gtf \
-    -threads 16 \
+    -threads 24 \
     -outDir $dataDir/result 
