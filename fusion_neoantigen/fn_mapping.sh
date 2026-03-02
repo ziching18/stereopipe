@@ -5,7 +5,7 @@ ulimit -v 33170449147
 NUMBA_CACHE_DIR=/stereoseq/tmp
 
 dataDir=/stereoseq/SD507_SD693
-# outDir=/stereoseq/SD507_SD693
+tmpDir=/stereoseq/tmp
 refDir=/stereoseq/reference
 
 export SINGULARITY_BIND=$dataDir,$refDir
@@ -22,4 +22,5 @@ bash /stereoseq/code/stereopipe/fusion_neoantigen/fn_saw_mapping.sh \
     -refIndex $refDir/STAR_SJ100 \
     -annotationFile $refDir/GRCh38.109.gtf \
     -threads 12 \
+    --outTmpDir $tmpDir \
     -outDir $dataDir/result 
