@@ -201,7 +201,7 @@ if [[ $fqType == 'PE' ]]; then
             --sysShell /bin/bash \
             --stParaFile ${bcPara} \
             --readNameSeparator \" \" \
-            --limitBAMsortRAM 150000000000 \ 
+            --limitBAMsortRAM 150000000000 \
             --limitOutSJcollapsed 10000000 \
             --limitIObufferSize=280000000 \
             --outBAMsortingBinsN 50 \
