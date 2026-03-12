@@ -208,7 +208,7 @@ if [[ $fqType == 'PE' ]]; then
             --peOverlapNbasesMin 10 \
             --alignSplicedMateMapLminOverLmate 0.5 \
             --chimSegmentMin 10 \
-            --chimJunctionOverhangMin 10 \
+            --chimJunctionOverhangMin 8 \
             --chimScoreDropMax 30 \
             --chimScoreJunctionNonGTAG 0 \
             --chimScoreSeparation 1 \
@@ -217,27 +217,6 @@ if [[ $fqType == 'PE' ]]; then
             --chimOutType WithinBAM HardClip \
             --outSAMunmapped Within \
             > ${result_00mapping}/${fqbase}_barcodeMap.stat
-
-        #### Suffian's NeonDisco STAR alignment options
-        # STAR --runThreadN "${CORES}" \
-        # --genomeDir "${INDEX}" \
-        # --readFilesIn "${READ1}" "${READ2}" \
-        # --readFilesCommand zcat \
-        # --outFileNamePrefix "${SAMPLE_ID}-STAR-ARR_" \
-        # --outFilterMultimapNmax 50 \
-        # --peOverlapNbasesMin 10 \
-        # --alignSplicedMateMapLminOverLmate 0.5 \
-        # --chimSegmentMin 10 \
-        # --chimJunctionOverhangMin 10 \
-        # --chimScoreDropMax 30 \
-        # --chimScoreJunctionNonGTAG 0 \
-        # --chimScoreSeparation 1 \
-        # --chimSegmentReadGapMax 3 \
-        # --chimMultimapNmax 50 \
-        # --alignSJstitchMismatchNmax 5 -1 5 5 \
-        # --outSAMtype BAM Unsorted \
-        # --chimOutType WithinBAM HardClip \
-        # --outSAMunmapped Within
 
         starBam=${result_00mapping}/${fqbase}.Aligned.sortedByCoord.out.bam
         starBams[i]=$starBam
