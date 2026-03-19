@@ -1,0 +1,16 @@
+@@ exporting counts in the form of compressed matrix to be loaded in R
+## raw counts (integer)
+for i,d in enumerate(datanames):
+    ## get cancer epithelial bins
+    df = rawcounts[i].copy()
+    df.index = df.index.astype("int64") ## equalise index format
+    df1 = df.join(weightsmajortypes2_list[i])
+    df2 = df1[df1["majortype"]=="Cancer Epithelial"].drop(columns=["majortype"])
+
+    ## export as csr matrix
+    target = f"/stereoseq/all_samples/tumour_gene_counts/mtx/{d}.bin{bin_size}.counts.tumour.mtx"
+    mmwrite(target, sc.sparse.csr_matrix(df2, dtype="int64"))
+
+    ## export index and columns
+    df2.index.to_series().to_csv(f"/stereoseq/all_samples/tumour_gene_counts/mtx/{d}.bin{bin_size}.rows.txt", index=False, header=False)
+    df2.columns.to_series().to_csv(f"/stereoseq/all_samples/tumour_gene_counts/mtx/{d}.bin{bin_size}.cols.txt", index=False, header=False)
