@@ -52,9 +52,12 @@ grep -v "^#" ${TUM_ID}.RNAseq.somatic.mutect2filtered.vcf | cut -f7 | sort | uni
 ### filter for PASS
 bcftools view -f PASS ${TUM_ID}.RNAseq.somatic.mutect2filtered.vcf -Oz -o ${TUM_ID}.RNAseq.somatic.filtered1.vcf 
 
+### filter for long indels (<20)
+bcftools view -i 'strlen(REF)<20 && strlen(ALT)<20' ${TUM_ID}.RNAseq.somatic.filtered1.vcf -o ${TUM_ID}.RNAseq.somatic.filtered1.filtered.vcf
+
 ## funcotator
 /home/ubuntu/tools/gatk-4.4.0.0/gatk Funcotator \
---variant ${TUM_ID}.RNAseq.somatic.filtered1.vcf \
+--variant ${TUM_ID}.RNAseq.somatic.filtered1.filtered.vcf \
 --reference /stereoseq/reference/GRCh38.109.fa \
 --ref-version hg38 \
 --data-sources-path /stereoseq/reference/funcotator/funcotator_dataSources.v1.7.20200521s \
