@@ -10,8 +10,8 @@ sort | uniq |
 xargs -I % sh -c \
 "
 
-aws s3 cp s3://crm.tumorstudy.mamduh/WES/Tumor_Plate${n}/BQSR/%.recalibrated.bam /stereoseq/wes/bam/; \
-aws s3 cp s3://crm.tumorstudy.mamduh/WES/Tumor_Plate${n}/BQSR/%.recalibrated.bai /stereoseq/wes/bam/; \
+aws s3 cp s3://crm.tumorstudy.mamduh/WES/Tumor_Plate${n}/BQSR/%.recalibrated.bam --force-glacier-transfer /stereoseq/wes/bam/; \
+aws s3 cp s3://crm.tumorstudy.mamduh/WES/Tumor_Plate${n}/BQSR/%.recalibrated.bai --force-glacier-transfer /stereoseq/wes/bam/; \
 
 
 samtools view -b /stereoseq/wes/bam/%.recalibrated.bam MT > /stereoseq/wes/bam/%.recalibrated.MT.bam; \
