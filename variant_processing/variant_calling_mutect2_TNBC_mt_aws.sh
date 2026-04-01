@@ -38,7 +38,7 @@ aws s3 cp /stereoseq/wes/vcf/plate${n}/%.MT.filtered.PASS.vcf s3://crm.tumorstud
 aws s3 cp /stereoseq/wes/vcf/plate${n}/%.MT.filtered.PASS.vcf.idx s3://crm.tumorstudy.mamduh/WES/somatic_variants/GATK4_Mutect2_MT_variants/%.MT.filtered.PASS.vcf.idx; \
 
 
-#rm /stereoseq/wes/bam/plate${n}/*;
-#rm /stereoseq/wes/vcf/plate${n}/*;
+rm /stereoseq/wes/bam/plate${n}/*;
+rm /stereoseq/wes/vcf/plate${n}/*;
 
 ";
