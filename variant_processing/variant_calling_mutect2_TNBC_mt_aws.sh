@@ -8,8 +8,8 @@ awk '{print $1}' |
 xargs -I % sh -c \
 "
 
-aws s3 cp s3://crm.tumorstudy.mamduh/WES/Tumor_Plate${n}/BQSR/%.recalibrated.bam /stereoseq/wes/bam/plate${n}/ --force-glacier-transfer; \
-aws s3 cp s3://crm.tumorstudy.mamduh/WES/Tumor_Plate${n}/BQSR/%.recalibrated.bai /stereoseq/wes/bam/plate${n}/ --force-glacier-transfer; \
+aws s3 cp s3://crm.tumorstudy.mamduh/WES/Tumor_Plate${n}/BQSR/%_TUM.recalibrated.bam /stereoseq/wes/bam/plate${n}/ --force-glacier-transfer; \
+aws s3 cp s3://crm.tumorstudy.mamduh/WES/Tumor_Plate${n}/BQSR/%_TUM.recalibrated.bai /stereoseq/wes/bam/plate${n}/ --force-glacier-transfer; \
 
 
 samtools view -b /stereoseq/wes/bam/plate${n}/%.recalibrated.bam MT > /stereoseq/wes/bam/plate${n}/%.recalibrated.MT.bam; \
