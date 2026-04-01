@@ -12,7 +12,7 @@ aws s3 cp s3://crm.tumorstudy.mamduh/WES/Tumor_Plate${n}/BQSR/%_TUM.recalibrated
 aws s3 cp s3://crm.tumorstudy.mamduh/WES/Tumor_Plate${n}/BQSR/%_TUM.recalibrated.bai /stereoseq/wes/bam/plate${n}/ --force-glacier-transfer; \
 
 
-samtools view -b /stereoseq/wes/bam/plate${n}/%.recalibrated.bam MT > /stereoseq/wes/bam/plate${n}/%.recalibrated.MT.bam; \
+samtools view -b /stereoseq/wes/bam/plate${n}/%_TUM.recalibrated.bam MT > /stereoseq/wes/bam/plate${n}/%.recalibrated.MT.bam; \
 samtools index /stereoseq/wes/bam/plate${n}/%.recalibrated.MT.bam; \
 
 
