@@ -1,6 +1,6 @@
 ## MITOCHONDRIAL VARIANT CALLING W/ MUTECT2 ON WES BAMS IN AWS
 
-n=$1
+n=$1;
 
 aws s3 ls s3://crm.tumorstudy.mamduh/WES/Tumor_Plate${n}/BQSR/ |
 awk '{print $NF}'|
