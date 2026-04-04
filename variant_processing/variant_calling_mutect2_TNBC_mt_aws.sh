@@ -39,15 +39,15 @@ xargs -I % sh -c \
 
 
 /home/ubuntu/tools/gatk-4.4.0.0/gatk Funcotator \
---variant /stereoseq/wes/vcf/plate${n}/%.MT.filtered.vcf \
+--variant /stereoseq/wes/vcf/%.MT.filtered.vcf \
 --reference /stereoseq/reference/hs37d5.fa.gz \
 --ref-version hs37d5 \
 --data-sources-path /stereoseq/reference/funcotator/funcotator_dataSources.v1.7.20200521s \
---output /stereoseq/wes/vcf/plate${n}/%.MT.filtered.funcotated.vcf \
+--output /stereoseq/wes/vcf/%.MT.filtered.funcotated.vcf \
 --output-file-format VCF;
 
 
-aws s3 cp /stereoseq/wes/vcf/plate${n}/%.MT.filtered.funcotated.vcf s3://crm.tumorstudy.mamduh/WES/somatic_variants/GATK4_Mutect2_MT_variants/%.MT.filtered.funcotated.vcf; \
+aws s3 cp /stereoseq/wes/vcf/%.MT.filtered.funcotated.vcf s3://crm.tumorstudy.mamduh/WES/somatic_variants/GATK4_Mutect2_MT_variants/%.MT.filtered.funcotated.vcf; \
 
 
 # rm /stereoseq/wes/bam/plate${n}/*;
