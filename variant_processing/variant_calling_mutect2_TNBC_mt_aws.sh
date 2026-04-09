@@ -38,11 +38,11 @@ xargs -I % sh -c \
 # aws s3 cp /stereoseq/wes/vcf/plate${n}/%.MT.filtered.PASS.vcf.idx s3://crm.tumorstudy.mamduh/WES/somatic_variants/GATK4_Mutect2_MT_variants/%.MT.filtered.PASS.vcf.idx; \
 
 
-/home/ubuntu/tools/gatk-4.4.0.0/gatk Funcotator \
+/home/ubuntu/tools/gatk-4.6.2.0/gatk Funcotator \
 --variant /stereoseq/wes/vcf/%.MT.filtered.vcf \
 --reference /stereoseq/reference/hs37d5.fa.gz \
---ref-version hs37d5 \
---data-sources-path /stereoseq/reference/funcotator/funcotator_dataSources.v1.7.20200521s \
+--ref-version hg19 \
+--data-sources-path /stereoseq/reference/funcotator_dataSources.v1.8.hg19.20230908s \
 --output /stereoseq/wes/vcf/%.MT.filtered.funcotated.vcf \
 --output-file-format VCF;
 
